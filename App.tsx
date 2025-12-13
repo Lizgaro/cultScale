@@ -12,7 +12,8 @@ import {
   Zap,
   Lock,
   Send,
-  Play
+  Play,
+  ChevronDown
 } from 'lucide-react';
 import { RoleFeature, ComparisonItem, ProcessStep, ChatMessage, FormData, RoleComparisonData } from './types';
 
@@ -24,7 +25,7 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
     roleName: 'Фаундер',
     kultPath: {
       stages: [
-        { title: "Матчинг", description: "ИИ подбирает проверенного продюсера и маркетолога.", result: "Партнер найден", time: "24 часа" },
+        { title: "Матчинг", description: "В Kult у тебя есть возможность выбрать команду.", result: "Партнер найден", time: "24 часа" },
         { title: "MVP", description: "Запуск первой версии продукта с готовой командой.", result: "Запуск", time: "1 неделя" },
         { title: "Трекшн", description: "Первые продажи через базу партнеров.", result: "Выручка", time: "2 недели" },
         { title: "Масштаб", description: "Выход на полную окупаемость и рост.", result: "Profit", time: "1 месяц" }
@@ -304,6 +305,16 @@ const SplitScreenComparison: React.FC = () => {
   const [isVisible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
+  // Accordion states
+  const [leftOpenIndex, setLeftOpenIndex] = useState<number | null>(null);
+  const [rightOpenIndex, setRightOpenIndex] = useState<number | null>(null);
+
+  // Reset accordion when role changes
+  useEffect(() => {
+    setLeftOpenIndex(null);
+    setRightOpenIndex(null);
+  }, [activeRole]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -321,15 +332,18 @@ const SplitScreenComparison: React.FC = () => {
 
   if (!data) return null;
 
+  const toggleLeft = (idx: number) => setLeftOpenIndex(leftOpenIndex === idx ? null : idx);
+  const toggleRight = (idx: number) => setRightOpenIndex(rightOpenIndex === idx ? null : idx);
+
   return (
     <section id="split-comparison" ref={sectionRef} className="py-32 px-6 bg-kult-black relative overflow-hidden z-30">
        <div className="max-w-7xl mx-auto">
          <SectionHeader title="СРАВНЕНИЕ ПУТИ" subtitle="Выберите роль, чтобы увидеть разницу" centered />
 
-         {/* Task A2: Usage Instruction */}
+         {/* Usage Instruction */}
          <div className="text-center mb-10 -mt-12 relative z-20">
             <p className="inline-block py-2 px-4 rounded-full bg-white/5 border border-white/10 text-kult-muted text-xs md:text-sm font-mono tracking-wide">
-              1) Выбери роль → 2) Выбери путь → 3) Сравни этапы
+              1) Выбери роль → 2) Выбери путь → 3) Нажми на этап
             </p>
          </div>
 
@@ -360,18 +374,34 @@ const SplitScreenComparison: React.FC = () => {
                  <Zap className="text-green-500 fill-current" /> С KULT
                </h3>
 
-               <div className="space-y-12">
-                 {data.kultPath.stages.map((stage, idx) => (
-                   <div key={idx} className="relative pl-8 border-l border-green-500/30 pb-2 last:pb-0">
-                     <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_10px_#00ff00]"></div>
-                     <h4 className="text-lg font-bold text-white mb-2">{stage.title}</h4>
-                     <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
-                     <div className="flex items-center justify-between mt-2 p-3 bg-green-500/10 rounded border border-green-500/20">
-                        <span className="text-green-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
-                        <span className="text-white font-bold text-sm">{stage.time}</span>
+               <div className="space-y-4">
+                 {data.kultPath.stages.map((stage, idx) => {
+                   const isOpen = leftOpenIndex === idx;
+                   return (
+                     <div
+                        key={idx}
+                        className={`relative pl-8 border-l border-green-500/30 transition-all duration-300 cursor-pointer group ${isOpen ? 'pb-6' : 'pb-2'}`}
+                        onClick={() => toggleLeft(idx)}
+                     >
+                       <div className={`absolute -left-[5px] top-1 w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_10px_#00ff00] transition-transform ${isOpen ? 'scale-125' : ''}`}></div>
+
+                       <div className="flex items-center justify-between">
+                         <h4 className={`text-lg font-bold transition-colors ${isOpen ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>{stage.title}</h4>
+                         <ChevronDown size={20} className={`text-green-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                       </div>
+
+                       <div className={`grid transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0'}`}>
+                         <div className="overflow-hidden">
+                           <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
+                           <div className="flex items-center justify-between p-3 bg-green-500/10 rounded border border-green-500/20">
+                              <span className="text-green-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
+                              <span className="text-white font-bold text-sm">{stage.time}</span>
+                           </div>
+                         </div>
+                       </div>
                      </div>
-                   </div>
-                 ))}
+                   );
+                 })}
                </div>
 
                <div className="mt-12 pt-8 border-t border-white/10 text-center">
@@ -387,18 +417,34 @@ const SplitScreenComparison: React.FC = () => {
                  <Lock className="text-gray-500" /> Самостоятельно
                </h3>
 
-               <div className="space-y-12">
-                 {data.tradPath.stages.map((stage, idx) => (
-                   <div key={idx} className="relative pl-8 border-l border-gray-600/30 pb-2 last:pb-0">
-                     <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-gray-600 rounded-full"></div>
-                     <h4 className="text-lg font-bold text-white mb-2">{stage.title}</h4>
-                     <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
-                     <div className="flex items-center justify-between mt-2 p-3 bg-white/5 rounded border border-white/10">
-                        <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
-                        <span className="text-gray-300 font-bold text-sm">{stage.time}</span>
+               <div className="space-y-4">
+                 {data.tradPath.stages.map((stage, idx) => {
+                   const isOpen = rightOpenIndex === idx;
+                   return (
+                     <div
+                        key={idx}
+                        className={`relative pl-8 border-l border-gray-600/30 transition-all duration-300 cursor-pointer group ${isOpen ? 'pb-6' : 'pb-2'}`}
+                        onClick={() => toggleRight(idx)}
+                     >
+                       <div className={`absolute -left-[5px] top-1 w-2.5 h-2.5 bg-gray-600 rounded-full transition-transform ${isOpen ? 'scale-125' : ''}`}></div>
+
+                       <div className="flex items-center justify-between">
+                         <h4 className={`text-lg font-bold transition-colors ${isOpen ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>{stage.title}</h4>
+                         <ChevronDown size={20} className={`text-gray-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                       </div>
+
+                       <div className={`grid transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0'}`}>
+                         <div className="overflow-hidden">
+                           <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
+                           <div className="flex items-center justify-between p-3 bg-white/5 rounded border border-white/10">
+                              <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
+                              <span className="text-gray-300 font-bold text-sm">{stage.time}</span>
+                           </div>
+                         </div>
+                       </div>
                      </div>
-                   </div>
-                 ))}
+                   );
+                 })}
                </div>
 
                <div className="mt-12 pt-8 border-t border-white/10 text-center">
