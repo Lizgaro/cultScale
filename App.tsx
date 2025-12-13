@@ -326,6 +326,13 @@ const SplitScreenComparison: React.FC = () => {
        <div className="max-w-7xl mx-auto">
          <SectionHeader title="СРАВНЕНИЕ ПУТИ" subtitle="Выберите роль, чтобы увидеть разницу" centered />
 
+         {/* Task A2: Usage Instruction */}
+         <div className="text-center mb-10 -mt-12 relative z-20">
+            <p className="inline-block py-2 px-4 rounded-full bg-white/5 border border-white/10 text-kult-muted text-xs md:text-sm font-mono tracking-wide">
+              1) Выбери роль → 2) Выбери путь → 3) Сравни этапы
+            </p>
+         </div>
+
          {/* Role Selectors */}
          <div className="flex flex-wrap justify-center gap-4 mb-16 relative z-20">
            {ROLE_COMPARISON_DATA.map((role) => (
@@ -408,6 +415,53 @@ const SplitScreenComparison: React.FC = () => {
 };
 
 // --- New Components for Catalog & Trust ---
+
+const TurnkeySection: React.FC = () => (
+  <section className="py-24 px-6 bg-kult-black relative z-30 border-t border-white/5">
+    <div className="max-w-4xl mx-auto">
+       <div className="bg-white/5 backdrop-blur-sm p-8 md:p-12 border border-white/10 rounded-2xl relative overflow-hidden group hover:border-white/20 transition-colors">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+          <h3 className="text-2xl md:text-3xl font-serif text-white mb-8 leading-tight">
+            Мы можем подобрать тебе маркетолога с опытом от 3 лет и выстроить всю систему партнерского маркетинга под ключ.
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            <div>
+              <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">📌 Что входит:</h4>
+              <ul className="space-y-4 text-kult-muted">
+                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Подбор маркетолога и ЛМ под твой проект</li>
+                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Упаковка оффера и воронок</li>
+                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Запуск гипотез за 3-4 месяца</li>
+                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Сопровождение до первых продаж</li>
+              </ul>
+            </div>
+
+            <div>
+               <h4 className="text-lg font-bold text-white mb-6">Материалы и примеры работ:</h4>
+               <div className="space-y-4">
+                 <a href="https://scale-x.ru/b" target="_blank" rel="noopener noreferrer" className="block text-white hover:text-green-400 transition-colors group/link flex items-center gap-2">
+                   <span className="text-green-500 group-hover/link:translate-x-1 transition-transform">→</span>
+                   <span className="underline decoration-white/30 underline-offset-4 group-hover/link:decoration-green-400">Лендинг: scale-x.ru/b</span>
+                 </a>
+                 <a href="https://www.youtube.com/playlist?list=PLjRb9QSd9LLRDlsB37KhUJm4rpH7OfrKl" target="_blank" rel="noopener noreferrer" className="block text-white hover:text-green-400 transition-colors group/link flex items-center gap-2">
+                   <span className="text-green-500 group-hover/link:translate-x-1 transition-transform">→</span>
+                   <span className="underline decoration-white/30 underline-offset-4 group-hover/link:decoration-green-400">Плейлист с кейсами</span>
+                 </a>
+               </div>
+            </div>
+          </div>
+
+          <div className="mt-10 pt-8 border-t border-white/10">
+            <p className="text-white text-lg">
+              Готов обсудить детали? Запишись на встречу с <a href="https://t.me/kostya_fun" target="_blank" rel="noopener noreferrer" className="text-green-500 font-bold hover:text-green-400 transition-colors">@kostya_fun</a> — он расскажет, как это работает конкретно для твоего проекта.
+            </p>
+          </div>
+
+       </div>
+    </div>
+  </section>
+);
 
 const ProjectsCatalog: React.FC = () => {
   const simpleProjects = [
@@ -722,7 +776,10 @@ const App: React.FC = () => {
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] -z-10 pointer-events-none animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
 
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center z-10">
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left relative">
+            {/* Task E1: Improved readability background */}
+            <div className="absolute -inset-10 bg-black/40 blur-3xl -z-10 pointer-events-none rounded-full"></div>
+
             <FadeInSection>
               <div className="inline-flex items-center gap-2 py-1 px-3 border border-white/10 bg-white/5 rounded-full mb-8 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
@@ -740,9 +797,12 @@ const App: React.FC = () => {
             </FadeInSection>
 
             <FadeInSection delay={400}>
-              <p className="text-lg md:text-xl text-kult-muted max-w-xl mx-auto lg:mx-0 font-light leading-relaxed mb-12 border-l border-white/20 pl-6 text-left">
-                Единственное место, где фаундер, маркетолог и лидер мнений работают вместе на долях от прибыли.
-              </p>
+              <div className="max-w-xl mx-auto lg:mx-0 mb-12 border-l border-white/20 pl-6 text-left">
+                 <p className="text-xl md:text-2xl text-white font-serif mb-2">КУЛЬТ — место высокой продуктивности.</p>
+                 <p className="text-lg text-kult-muted font-light leading-relaxed">
+                   Растёшь и масштабируешься быстрее за счёт методологий, поддержки и наших механик.
+                 </p>
+              </div>
             </FadeInSection>
 
             <FadeInSection delay={600}>
@@ -876,6 +936,8 @@ const App: React.FC = () => {
       </section>
 
       <SplitScreenComparison />
+
+      <TurnkeySection />
 
       <Marquee text="DAO GOVERNANCE • NO SALARIES • JUST RESULTS •" reverse={true} />
 
