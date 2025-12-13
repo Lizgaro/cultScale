@@ -11,7 +11,8 @@ import {
   MessageSquare,
   Zap,
   Lock,
-  Send
+  Send,
+  Play
 } from 'lucide-react';
 import { RoleFeature, ComparisonItem, ProcessStep, ChatMessage, FormData } from './types';
 
@@ -142,22 +143,15 @@ const ChatSimulation: React.FC = () => {
   );
 };
 
+// Updated Modal Component
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  const [step, setStep] = useState(1);
-  const [data, setData] = useState<FormData>({ role: '', telegram: '', consent: false });
+  const [agreed, setAgreed] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleRoleSelect = (role: string) => {
-    setData({ ...data, role });
-    setStep(2);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (data.consent && data.telegram) {
-      setStep(3);
-      // Here you would typically send data to backend
+  const handleGoToBot = () => {
+    if (agreed) {
+      window.location.href = "https://t.me/CultScale_bot";
     }
   };
 
@@ -169,94 +163,221 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
           <X size={24} />
         </button>
 
-        {step === 1 && (
-          <div className="animate-float">
-            <h3 className="text-2xl font-serif text-white mb-2">Выбери роль</h3>
-            <p className="text-kult-muted text-sm mb-8">Для персонализации челленджа</p>
-            <div className="space-y-3">
-              {['Фаундер', 'Маркетолог', 'Лидер Мнений'].map(role => (
-                <button 
-                  key={role}
-                  onClick={() => handleRoleSelect(role)}
-                  className="w-full text-left p-4 border border-white/10 hover:bg-white hover:text-black hover:border-white transition-all duration-300 flex justify-between group"
-                >
-                  <span className="font-bold tracking-wide uppercase text-sm">{role}</span>
-                  <ArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity" size={18} />
-                </button>
-              ))}
-            </div>
+        <div className="animate-float">
+          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
+            <Zap size={32} className="text-black fill-current" />
           </div>
-        )}
 
-        {step === 2 && (
-          <form onSubmit={handleSubmit} className="animate-float">
-            <h3 className="text-2xl font-serif text-white mb-2">Контакты</h3>
-            <p className="text-kult-muted text-sm mb-8">Мы пришлем детали в Telegram</p>
-            
-            <div className="mb-6">
-              <label className="block text-xs font-mono text-kult-muted uppercase mb-2">Telegram username</label>
-              <div className="flex bg-kult-black border border-white/20 focus-within:border-white transition-colors">
-                <span className="p-4 text-kult-muted">@</span>
-                <input 
-                  type="text" 
-                  required
-                  placeholder="username"
-                  className="w-full bg-transparent text-white p-4 pl-0 outline-none placeholder:text-white/20"
-                  value={data.telegram}
-                  onChange={e => setData({...data, telegram: e.target.value})}
-                />
+          <h3 className="text-2xl font-serif text-white mb-4 text-center">Запусти свой рост</h3>
+          <p className="text-kult-muted text-sm mb-8 text-center">
+            Все операции, матчинг и управление процессами происходят в нашем Telegram боте.
+          </p>
+
+          <div className="mb-8">
+             <label className="flex items-start gap-3 cursor-pointer group p-3 border border-white/5 rounded hover:bg-white/5 transition-colors">
+              <div className={`w-5 h-5 border flex items-center justify-center transition-colors flex-shrink-0 mt-0.5 ${agreed ? 'bg-white border-white' : 'border-white/30 group-hover:border-white'}`}>
+                {agreed && <CheckCircle2 size={12} className="text-black" />}
               </div>
-            </div>
-
-            <div className="mb-8">
-              <label className="flex items-start gap-3 cursor-pointer group">
-                <div className={`w-5 h-5 border flex items-center justify-center transition-colors ${data.consent ? 'bg-white border-white' : 'border-white/30 group-hover:border-white'}`}>
-                  {data.consent && <CheckCircle2 size={12} className="text-black" />}
-                </div>
-                <input 
-                  type="checkbox" 
-                  className="hidden"
-                  checked={data.consent}
-                  onChange={e => setData({...data, consent: e.target.checked})}
-                />
-                <span className="text-xs text-kult-muted leading-tight">
-                  Я даю согласие на обработку персональных данных в соответствии с законодательством РФ (152-ФЗ) и Политикой конфиденциальности.
-                </span>
-              </label>
-            </div>
-
-            <button 
-              type="submit" 
-              disabled={!data.consent || !data.telegram}
-              className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Отправить заявку
-            </button>
-            
-            <button type="button" onClick={() => setStep(1)} className="mt-4 text-xs text-kult-muted hover:text-white underline">
-              Назад
-            </button>
-          </form>
-        )}
-
-        {step === 3 && (
-          <div className="text-center animate-float">
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 size={32} className="text-black" />
-            </div>
-            <h3 className="text-2xl font-serif text-white mb-4">Заявка принята</h3>
-            <p className="text-kult-muted text-sm mb-8">
-              Менеджер свяжется с вами по указанному контакту в течение 24 часов.
-            </p>
-            <button onClick={onClose} className="px-8 py-3 border border-white/20 hover:bg-white hover:text-black transition-colors text-sm uppercase tracking-widest">
-              Вернуться на сайт
-            </button>
+              <input
+                type="checkbox"
+                className="hidden"
+                checked={agreed}
+                onChange={e => setAgreed(e.target.checked)}
+              />
+              <span className="text-xs text-kult-muted leading-tight">
+                Я принимаю условия <a href="/legal/offer.html" target="_blank" className="underline hover:text-white">Оферты</a>,
+                соглашаюсь с <a href="/legal/privacy.html" target="_blank" className="underline hover:text-white">Политикой конфиденциальности</a> и даю
+                <a href="/legal/consent.html" target="_blank" className="underline hover:text-white"> Согласие на обработку персональных данных</a>.
+              </span>
+            </label>
           </div>
-        )}
+
+          <button
+            onClick={handleGoToBot}
+            disabled={!agreed}
+            className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            Перейти в бота <Send size={16} />
+          </button>
+        </div>
       </div>
     </div>
   );
 };
+
+// --- New Components for Catalog & Trust ---
+
+const ProjectsCatalog: React.FC = () => {
+  const simpleProjects = [
+    { title: "SpeakyGo", desc: "Практика языка с ИИ собеседником", icon: "🗣️", status: "Active" },
+    { title: "ChallengeLife", desc: "Сервис челленджей и марафонов", icon: "🏆", status: "Active" },
+    { title: "SkyPay/Capital", desc: "Крипта работает как обычные деньги", icon: "💳", status: "Coming Soon" },
+    { title: "Find The Job", desc: "Поиск работы и сотрудников с ИИ", icon: "🔍", status: "Active" },
+    { title: "Мяудза", desc: "Командный чат и задачи", icon: "🐱", status: "Active" },
+  ];
+
+  const heavyProjects = [
+    { title: "Metadoor-dev", desc: "Финмодели и прогнозы для бизнеса", icon: "📊", status: "Active" },
+    { title: "Claritech", desc: "Контроль и анализ расходов", icon: "📉", status: "Active" },
+    { title: "SciArticle", desc: "Автоматические бизнес-отчёты", icon: "📑", status: "Active" },
+    { title: "CRMChat", desc: "AI-аутрич и CRM в Telegram", icon: "🤖", status: "Active" },
+  ];
+
+  return (
+    <section className="py-24 px-6 bg-kult-black border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <SectionHeader title="ПРОЕКТЫ ЭКОСИСТЕМЫ" subtitle="От простых сервисов до сложных бизнес-решений" />
+
+        <div className="mb-16">
+          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><Zap size={20}/> Для людей и команд</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {simpleProjects.map((p, i) => (
+              <div key={i} className="p-6 border border-white/10 bg-white/5 rounded-lg hover:border-white/30 transition-all">
+                <div className="flex justify-between items-start mb-4">
+                  <span className="text-2xl">{p.icon}</span>
+                  {p.status === 'Active' ? <CheckCircle2 size={16} className="text-green-500"/> : <span className="text-[10px] uppercase border border-white/20 px-2 py-1 rounded text-kult-muted">Скоро</span>}
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">{p.title}</h4>
+                <p className="text-sm text-kult-muted">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-16">
+          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><BarChart3 size={20}/> Для бизнеса</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {heavyProjects.map((p, i) => (
+              <div key={i} className="p-6 border border-white/10 bg-white/5 rounded-lg hover:border-white/30 transition-all">
+                 <div className="flex justify-between items-start mb-4">
+                  <span className="text-2xl">{p.icon}</span>
+                  <CheckCircle2 size={16} className="text-green-500"/>
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">{p.title}</h4>
+                <p className="text-sm text-kult-muted">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Premium Card for New Project */}
+        <div className="relative overflow-hidden rounded-2xl border border-white/20 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/40 to-blue-900/40 opacity-50 group-hover:opacity-70 transition-opacity"></div>
+          <div className="relative p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+              <div className="inline-block px-3 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded mb-4">New Arrival</div>
+              <h3 className="text-3xl font-serif text-white mb-2">Spell-book</h3>
+              <p className="text-kult-muted max-w-lg">Платформа ИИ-ассистентов нового поколения для малого бизнеса.</p>
+            </div>
+            <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20 backdrop-blur-md">
+              <Zap size={32} className="text-white"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+const TrustSection: React.FC = () => (
+  <section className="py-24 px-6 bg-kult-dark relative">
+    <div className="max-w-7xl mx-auto">
+       <div className="grid lg:grid-cols-2 gap-16 items-center">
+         <div>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-8 leading-tight">
+              ДОВЕРИЕ В ЦИФРАХ
+            </h2>
+            <p className="text-kult-muted text-lg mb-12">
+              Мы не продаем курсы. Мы строим бизнесы. Результаты наших партнеров говорят громче любых обещаний.
+            </p>
+
+            <div className="space-y-8">
+              <div className="border-l-2 border-white/20 pl-6">
+                <div className="text-4xl font-bold text-white mb-1">+206 млн ₽</div>
+                <div className="text-sm text-kult-muted uppercase tracking-wider mb-2">Магазин парфюма в Telegram</div>
+                <div className="text-xs text-white/50">Стартовый бюджет: 30,000 ₽ • 1 год</div>
+              </div>
+
+              <div className="border-l-2 border-white/20 pl-6">
+                <div className="text-4xl font-bold text-white mb-1">+200 млн ₽</div>
+                <div className="text-sm text-kult-muted uppercase tracking-wider mb-2">GeekBrains</div>
+                <div className="text-xs text-white/50">Рекламный бюджет: 240,000 ₽</div>
+              </div>
+
+               <div className="border-l-2 border-white pl-6">
+                <div className="text-4xl font-bold text-white mb-1">700 млн ₽</div>
+                <div className="text-sm text-kult-muted uppercase tracking-wider">Общая выручка 17 проектов</div>
+              </div>
+            </div>
+
+            <a
+              href="https://youtu.be/tynzX-wg8QI?si=jAtil9a5mukGQtuR"
+              target="_blank"
+              className="mt-12 inline-flex items-center gap-3 text-white border border-white/20 px-6 py-4 rounded hover:bg-white hover:text-black transition-all group"
+            >
+              <Play size={18} className="fill-current"/> Смотреть разбор кейсов
+            </a>
+         </div>
+
+         <div className="relative">
+           {/* Placeholder for Marketologists Image or Graphic */}
+           <div className="aspect-[4/3] bg-white/5 rounded-lg border border-white/10 overflow-hidden relative group">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+              <img src="/marketologists.png" alt="Marketologists" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" />
+              <div className="absolute bottom-8 left-8 z-20">
+                <p className="text-white font-serif text-2xl italic">"Маркетинг — это не траты, это инвестиции."</p>
+              </div>
+           </div>
+         </div>
+       </div>
+    </div>
+  </section>
+);
+
+const GrowthTrackSection: React.FC = () => (
+  <section className="py-24 px-6 bg-kult-black">
+    <div className="max-w-7xl mx-auto">
+      <SectionHeader title="ТВОЙ ТРЕК РОСТА" subtitle="Прозрачный путь от новичка до совладельца" centered />
+
+      <div className="grid md:grid-cols-3 gap-8">
+        {[
+          {
+            role: "Маркетолог",
+            path: ["Проходишь отбор", "Получаешь проект", "Делаешь результат", "Получаешь % от прибыли"],
+            benefit: "Не ищешь клиентов. Работаешь за % (x3-x10 к рынку)."
+          },
+          {
+            role: "Фаундер",
+            path: ["Загружаешь проект", "Получаешь команду", "Масштабируешься", "Делишься прибылью"],
+            benefit: "Без затрат на найм. Мотивированная команда."
+          },
+          {
+            role: "Лидер Мнений",
+            path: ["Выбираешь оффер", "Делаешь интеграцию", "Получаешь долю", "Пассивный доход"],
+            benefit: "Активы вместо разовых оплат. Долгосрочное партнерство."
+          }
+        ].map((track, i) => (
+          <div key={i} className="bg-white/5 p-8 border border-white/10 rounded-xl relative hover:bg-white/10 transition-colors">
+            <h3 className="text-2xl font-serif text-white mb-6">{track.role}</h3>
+            <div className="space-y-4 mb-8">
+              {track.path.map((step, si) => (
+                <div key={si} className="flex items-center gap-3 text-sm text-kult-muted">
+                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white font-bold">{si + 1}</div>
+                  {step}
+                </div>
+              ))}
+            </div>
+            <div className="pt-6 border-t border-white/10">
+              <div className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Преимущество</div>
+              <p className="text-white text-sm leading-relaxed">{track.benefit}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 // --- Content Data ---
 
@@ -278,7 +399,7 @@ const ROLES: RoleFeature[] = [
       "Команда маркетологов и блогеров, мотивированных на результат",
       "Масштабирование без венчура и рекламных бюджетов",
       "Прямой доступ к аудитории через лидеров мнений",
-      "DAO-одобренные партнеры, прошедшие валидацию комьюнити"
+      "Партнеры, прошедшие валидацию комьюнити"
     ]
   },
   {
@@ -372,6 +493,7 @@ const App: React.FC = () => {
           <div className="hidden md:flex space-x-8 text-xs font-bold tracking-widest uppercase">
             <button onClick={() => scrollToSection('concept')} className="hover:text-white transition-colors">КОНЦЕПЦИЯ</button>
             <button onClick={() => scrollToSection('roles')} className="hover:text-white transition-colors">РОЛИ</button>
+            <button onClick={() => scrollToSection('projects')} className="hover:text-white transition-colors">ПРОЕКТЫ</button>
             <button onClick={() => scrollToSection('process')} className="hover:text-white transition-colors">ПРОЦЕСС</button>
             <button onClick={() => scrollToSection('manifesto')} className="hover:text-white transition-colors">МАНИФЕСТ</button>
           </div>
@@ -396,6 +518,7 @@ const App: React.FC = () => {
           <div className="md:hidden fixed inset-0 bg-kult-black z-40 pt-24 px-6 flex flex-col space-y-6">
              <button onClick={() => scrollToSection('concept')} className="text-left text-2xl font-serif text-white">КОНЦЕПЦИЯ</button>
             <button onClick={() => scrollToSection('roles')} className="text-left text-2xl font-serif text-white">РОЛИ</button>
+             <button onClick={() => scrollToSection('projects')} className="text-left text-2xl font-serif text-white">ПРОЕКТЫ</button>
             <button onClick={() => scrollToSection('process')} className="text-left text-2xl font-serif text-white">ПРОЦЕСС</button>
             <button onClick={() => scrollToSection('manifesto')} className="text-left text-2xl font-serif text-white">МАНИФЕСТ</button>
           </div>
@@ -559,12 +682,21 @@ const App: React.FC = () => {
 
       <Marquee text="DAO GOVERNANCE • NO SALARIES • JUST RESULTS •" reverse={true} />
 
+      {/* Projects Catalog */}
+      <div id="projects">
+        <ProjectsCatalog />
+      </div>
+
+      <GrowthTrackSection />
+
+      <TrustSection />
+
       {/* The Process */}
       <section id="process" className="py-32 px-6 bg-kult-black relative">
         <div className="max-w-5xl mx-auto">
           <SectionHeader 
             title="МЕХАНИКА" 
-            subtitle="7-дневные спринты вместо месяцев переговоров. DAO-голосование вместо субъективного отбора."
+            subtitle="7-дневные спринты вместо месяцев переговоров. Результат вместо бюрократии."
             centered={true}
           />
 
@@ -660,6 +792,7 @@ const App: React.FC = () => {
               <div className="flex flex-col gap-4 text-sm text-kult-muted">
                 <button onClick={() => scrollToSection('concept')} className="text-left hover:text-white transition-colors">Концепция</button>
                 <button onClick={() => scrollToSection('roles')} className="text-left hover:text-white transition-colors">Роли</button>
+                <button onClick={() => scrollToSection('projects')} className="text-left hover:text-white transition-colors">Проекты</button>
                 <button onClick={() => scrollToSection('process')} className="text-left hover:text-white transition-colors">Процесс</button>
               </div>
             </div>
@@ -667,9 +800,9 @@ const App: React.FC = () => {
             <div>
               <h5 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Документы</h5>
               <div className="flex flex-col gap-4 text-sm text-kult-muted">
-                <a href="#" className="hover:text-white transition-colors">Политика конфиденциальности</a>
-                <a href="#" className="hover:text-white transition-colors">Согласие на обработку ПД</a>
-                <a href="#" className="hover:text-white transition-colors">Оферта</a>
+                <a href="/legal/privacy.html" target="_blank" className="hover:text-white transition-colors">Политика конфиденциальности</a>
+                <a href="/legal/consent.html" target="_blank" className="hover:text-white transition-colors">Согласие на обработку ПД</a>
+                <a href="/legal/offer.html" target="_blank" className="hover:text-white transition-colors">Оферта</a>
               </div>
             </div>
           </div>
