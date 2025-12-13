@@ -205,6 +205,23 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
   );
 };
 
+const ComparisonRow: React.FC<{ title: string; traditional: string; kult: string }> = ({ title, traditional, kult }) => (
+  <div className="grid grid-cols-1 md:grid-cols-3 border-b border-white/10 last:border-0 hover:bg-white/5 transition-colors group">
+    <div className="p-6 md:p-8 flex items-center border-r border-white/10 md:border-r-0 md:border-b-0">
+      <h4 className="text-xl font-serif text-white">{title}</h4>
+    </div>
+    <div className="p-6 md:p-8 flex items-center border-r border-white/10 md:border-r-0 border-b md:border-b-0 border-white/10 text-kult-muted opacity-60 group-hover:opacity-100 transition-opacity">
+       <XCircle size={20} className="text-red-500 mr-3 flex-shrink-0" />
+       <span className="text-sm">{traditional}</span>
+    </div>
+    <div className="p-6 md:p-8 flex items-center bg-white/5 md:bg-transparent relative overflow-hidden">
+       <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+       <CheckCircle2 size={20} className="text-green-500 mr-3 flex-shrink-0 relative z-10" />
+       <span className="text-sm text-white font-medium relative z-10">{kult}</span>
+    </div>
+  </div>
+);
+
 // --- New Components for Catalog & Trust ---
 
 const ProjectsCatalog: React.FC = () => {
@@ -281,56 +298,45 @@ const ProjectsCatalog: React.FC = () => {
 };
 
 const TrustSection: React.FC = () => (
-  <section className="py-24 px-6 bg-kult-dark relative">
-    <div className="max-w-7xl mx-auto">
-       <div className="grid lg:grid-cols-2 gap-16 items-center">
-         <div>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-8 leading-tight">
-              ДОВЕРИЕ В ЦИФРАХ
-            </h2>
-            <p className="text-kult-muted text-lg mb-12">
-              Мы не продаем курсы. Мы строим бизнесы. Результаты наших партнеров говорят громче любых обещаний.
-            </p>
+  <section className="py-24 px-6 bg-kult-dark relative overflow-hidden">
+    {/* Background decoration to replace image visual weight */}
+    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
 
-            <div className="space-y-8">
-              <div className="border-l-2 border-white/20 pl-6">
-                <div className="text-4xl font-bold text-white mb-1">+206 млн ₽</div>
-                <div className="text-sm text-kult-muted uppercase tracking-wider mb-2">Магазин парфюма в Telegram</div>
-                <div className="text-xs text-white/50">Стартовый бюджет: 30,000 ₽ • 1 год</div>
-              </div>
+    <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-8 leading-tight">
+          ДОВЕРИЕ В ЦИФРАХ
+        </h2>
+        <p className="text-kult-muted text-lg mb-16 max-w-2xl mx-auto">
+          Мы не продаем курсы. Мы строим бизнесы. Результаты наших партнеров говорят громче любых обещаний.
+        </p>
 
-              <div className="border-l-2 border-white/20 pl-6">
-                <div className="text-4xl font-bold text-white mb-1">+200 млн ₽</div>
-                <div className="text-sm text-kult-muted uppercase tracking-wider mb-2">GeekBrains</div>
-                <div className="text-xs text-white/50">Рекламный бюджет: 240,000 ₽</div>
-              </div>
+        <div className="grid md:grid-cols-3 gap-12">
+          <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
+            <div className="text-4xl font-bold text-white mb-2">+206 млн ₽</div>
+            <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">Парфюм в Telegram</div>
+            <div className="text-[10px] text-white/50">Старт с 30к ₽</div>
+          </div>
 
-               <div className="border-l-2 border-white pl-6">
-                <div className="text-4xl font-bold text-white mb-1">700 млн ₽</div>
-                <div className="text-sm text-kult-muted uppercase tracking-wider">Общая выручка 17 проектов</div>
-              </div>
-            </div>
+          <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
+            <div className="text-4xl font-bold text-white mb-2">+200 млн ₽</div>
+            <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">EdTech Кейс</div>
+            <div className="text-[10px] text-white/50">GeekBrains</div>
+          </div>
 
-            <a
-              href="https://youtu.be/tynzX-wg8QI?si=jAtil9a5mukGQtuR"
-              target="_blank"
-              className="mt-12 inline-flex items-center gap-3 text-white border border-white/20 px-6 py-4 rounded hover:bg-white hover:text-black transition-all group"
-            >
-              <Play size={18} className="fill-current"/> Смотреть разбор кейсов
-            </a>
-         </div>
+            <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
+            <div className="text-4xl font-bold text-white mb-2">700 млн ₽</div>
+            <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">Общая выручка</div>
+            <div className="text-[10px] text-white/50">17 проектов</div>
+          </div>
+        </div>
 
-         <div className="relative">
-           {/* Placeholder for Marketologists Image or Graphic */}
-           <div className="aspect-[4/3] bg-white/5 rounded-lg border border-white/10 overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-              <img src="/marketologists.png" alt="Marketologists" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" />
-              <div className="absolute bottom-8 left-8 z-20">
-                <p className="text-white font-serif text-2xl italic">"Маркетинг — это не траты, это инвестиции."</p>
-              </div>
-           </div>
-         </div>
-       </div>
+        <a
+          href="https://youtu.be/tynzX-wg8QI?si=jAtil9a5mukGQtuR"
+          target="_blank"
+          className="mt-12 inline-flex items-center gap-3 text-white border border-white/20 px-8 py-4 rounded hover:bg-white hover:text-black transition-all group"
+        >
+          <Play size={18} className="fill-current"/> Смотреть разбор кейсов
+        </a>
     </div>
   </section>
 );
@@ -338,42 +344,40 @@ const TrustSection: React.FC = () => (
 const GrowthTrackSection: React.FC = () => (
   <section className="py-24 px-6 bg-kult-black">
     <div className="max-w-7xl mx-auto">
-      <SectionHeader title="ТВОЙ ТРЕК РОСТА" subtitle="Прозрачный путь от новичка до совладельца" centered />
+      <SectionHeader title="СРАВНЕНИЕ МОДЕЛЕЙ" subtitle="Почему старая модель найма больше не работает" centered />
 
-      <div className="grid md:grid-cols-3 gap-8">
-        {[
-          {
-            role: "Маркетолог",
-            path: ["Проходишь отбор", "Получаешь проект", "Делаешь результат", "Получаешь % от прибыли"],
-            benefit: "Не ищешь клиентов. Работаешь за % (x3-x10 к рынку)."
-          },
-          {
-            role: "Фаундер",
-            path: ["Загружаешь проект", "Получаешь команду", "Масштабируешься", "Делишься прибылью"],
-            benefit: "Без затрат на найм. Мотивированная команда."
-          },
-          {
-            role: "Лидер Мнений",
-            path: ["Выбираешь оффер", "Делаешь интеграцию", "Получаешь долю", "Пассивный доход"],
-            benefit: "Активы вместо разовых оплат. Долгосрочное партнерство."
-          }
-        ].map((track, i) => (
-          <div key={i} className="bg-white/5 p-8 border border-white/10 rounded-xl relative hover:bg-white/10 transition-colors">
-            <h3 className="text-2xl font-serif text-white mb-6">{track.role}</h3>
-            <div className="space-y-4 mb-8">
-              {track.path.map((step, si) => (
-                <div key={si} className="flex items-center gap-3 text-sm text-kult-muted">
-                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-white font-bold">{si + 1}</div>
-                  {step}
-                </div>
-              ))}
-            </div>
-            <div className="pt-6 border-t border-white/10">
-              <div className="text-green-400 text-xs font-bold uppercase tracking-widest mb-2">Преимущество</div>
-              <p className="text-white text-sm leading-relaxed">{track.benefit}</p>
-            </div>
-          </div>
-        ))}
+      <div className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm">
+        <div className="hidden md:grid grid-cols-3 bg-white/10 border-b border-white/10">
+          <div className="p-6 font-bold text-xs uppercase tracking-widest text-white">Критерий</div>
+          <div className="p-6 font-bold text-xs uppercase tracking-widest text-kult-muted">Обычный найм / Фриланс</div>
+          <div className="p-6 font-bold text-xs uppercase tracking-widest text-white">Модель Cult Assembly</div>
+        </div>
+
+        <ComparisonRow
+          title="Мотивация"
+          traditional="Работа за оклад. Главная цель — отсидеть часы или сдать задачу."
+          kult="Работа за долю. Главная цель — рост прибыли компании."
+        />
+        <ComparisonRow
+          title="Стоимость"
+          traditional="Высокий оклад + налоги + поиск + онбординг."
+          kult="0₽ на старте. Оплата только с фактической прибыли."
+        />
+        <ComparisonRow
+          title="Риски"
+          traditional="Если гипотеза не сработала — вы потеряли бюджет."
+          kult="Риски делятся на всех. Нет прибыли — нет расходов."
+        />
+        <ComparisonRow
+          title="Скорость"
+          traditional="Долгий найм, собеседования, тестовые задания."
+          kult="Готовая команда заходит в проект за 7 дней."
+        />
+        <ComparisonRow
+          title="Качество"
+          traditional="Сложно проверить компетенции до начала работы."
+          kult="Только проверенные партнеры, прошедшие челленджи."
+        />
       </div>
     </div>
   </section>
@@ -551,8 +555,7 @@ const App: React.FC = () => {
 
             <FadeInSection delay={400}>
               <p className="text-lg md:text-xl text-kult-muted max-w-xl mx-auto lg:mx-0 font-light leading-relaxed mb-12 border-l border-white/20 pl-6 text-left">
-                Первое в России место, где фаундеры растут без венчура, 
-                а лидеры мнений становятся совладельцами проектов.
+                Единственное место, где фаундер, маркетолог и лидер мнений работают вместе на долях от прибыли.
               </p>
             </FadeInSection>
 
