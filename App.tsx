@@ -14,9 +14,84 @@ import {
   Send,
   Play
 } from 'lucide-react';
-import { RoleFeature, ComparisonItem, ProcessStep, ChatMessage, FormData } from './types';
+import { RoleFeature, ComparisonItem, ProcessStep, ChatMessage, FormData, RoleComparisonData } from './types';
 
 // --- Reusable Components ---
+
+const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
+  {
+    roleId: 'founder',
+    roleName: 'Фаундер',
+    kultPath: {
+      stages: [
+        { title: "Матчинг", description: "ИИ подбирает проверенного продюсера и маркетолога.", result: "Партнер найден", time: "24 часа" },
+        { title: "MVP", description: "Запуск первой версии продукта с готовой командой.", result: "Запуск", time: "1 неделя" },
+        { title: "Трекшн", description: "Первые продажи через базу партнеров.", result: "Выручка", time: "2 недели" },
+        { title: "Масштаб", description: "Выход на полную окупаемость и рост.", result: "Profit", time: "1 месяц" }
+      ],
+      totalTime: "1.5 месяца",
+      summary: "До результата. Без затрат на ФОТ."
+    },
+    tradPath: {
+      stages: [
+        { title: "Поиск", description: "Поиск кофаундера и бесконечные встречи.", result: "Нет партнера", time: "2-3 мес" },
+        { title: "Найм", description: "Сбор штата, оформление, налоги.", result: "ФОТ -300к", time: "1 месяц" },
+        { title: "Разработка", description: "Долгострой, баги, смена подрядчиков.", result: "MVP", time: "4-6 мес" },
+        { title: "Маркетинг", description: "Попытки настроить рекламу самостоятельно.", result: "Слив бюджета", time: "∞" }
+      ],
+      totalTime: "8+ месяцев",
+      summary: "Или закрытие стартапа через полгода."
+    }
+  },
+  {
+    roleId: 'marketer',
+    roleName: 'Маркетолог',
+    kultPath: {
+      stages: [
+        { title: "Выбор", description: "Доступ к базе проектов с подтвержденным спросом.", result: "Проект выбран", time: "1 день" },
+        { title: "Условия", description: "Подписание смарт-контракта на долю от прибыли.", result: "Доля 30-50%", time: "Сразу" },
+        { title: "Запуск", description: "Запуск трафика на готовый оффер.", result: "Лиды", time: "3 дня" },
+        { title: "Доход", description: "Получение первых дивидендов от продаж.", result: "Кэш", time: "2 недели" }
+      ],
+      totalTime: "2 недели",
+      summary: "Выход на доход. Без поиска клиентов."
+    },
+    tradPath: {
+      stages: [
+        { title: "Резюме", description: "Рассылка откликов, собеседования с HR.", result: "Ожидание", time: "1 месяц" },
+        { title: "Оффер", description: "Торг за фикс + призрачные KPI.", result: "Потолок з/п", time: "1 неделя" },
+        { title: "Адаптация", description: "Изучение продукта, бюрократия.", result: "Рутина", time: "1 месяц" },
+        { title: "Работа", description: "Отчеты, согласования, правки.", result: "Выгорание", time: "Всегда" }
+      ],
+      totalTime: "2.5 месяца",
+      summary: "До первой зарплаты."
+    }
+  },
+  {
+    roleId: 'influencer',
+    roleName: 'Лидер Мнений',
+    kultPath: {
+      stages: [
+        { title: "Идея", description: "Продюсер предлагает продукт под вашу аудиторию.", result: "Концепт", time: "2 дня" },
+        { title: "Производство", description: "Партнеры создают продукт и воронку.", result: "Готово", time: "1 неделя" },
+        { title: "Анонс", description: "Прогрев и анонс по своей базе.", result: "Охваты", time: "3 дня" },
+        { title: "Активы", description: "Получение доли в бизнесе.", result: "Пассив", time: "Навсегда" }
+      ],
+      totalTime: "2 недели",
+      summary: "Свой бизнес, а не разовая реклама."
+    },
+    tradPath: {
+      stages: [
+        { title: "Ожидание", description: "Пассивное ожидание заявок на рекламу.", result: "Тишина", time: "?" },
+        { title: "ТЗ", description: "Согласование жесткого ТЗ от заказчика.", result: "Рамки", time: "3 дня" },
+        { title: "Пост", description: "Публикация рекламы (часто скам).", result: "Оплата", time: "1 день" },
+        { title: "Поиск", description: "Снова поиск рекламодателя.", result: "Нестабильность", time: "Постоянно" }
+      ],
+      totalTime: "Разово",
+      summary: "Работа за еду (бартер)."
+    }
+  }
+];
 
 const FadeInSection: React.FC<{ children: React.ReactNode; delay?: number; className?: string }> = ({ children, delay = 0, className = "" }) => {
   const [isVisible, setVisible] = useState(false);
@@ -222,6 +297,116 @@ const ComparisonRow: React.FC<{ title: string; traditional: string; kult: string
   </div>
 );
 
+// --- New Split Screen Comparison Component ---
+
+const SplitScreenComparison: React.FC = () => {
+  const [activeRole, setActiveRole] = useState<'founder' | 'marketer' | 'influencer'>('founder');
+  const [isVisible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setVisible(true);
+      });
+    }, { threshold: 0.1 });
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
+
+  const data = ROLE_COMPARISON_DATA.find(r => r.roleId === activeRole);
+
+  if (!data) return null;
+
+  return (
+    <section id="split-comparison" ref={sectionRef} className="py-32 px-6 bg-kult-black relative overflow-hidden z-30">
+       <div className="max-w-7xl mx-auto">
+         <SectionHeader title="СРАВНЕНИЕ ПУТИ" subtitle="Выберите роль, чтобы увидеть разницу" centered />
+
+         {/* Role Selectors */}
+         <div className="flex flex-wrap justify-center gap-4 mb-16 relative z-20">
+           {ROLE_COMPARISON_DATA.map((role) => (
+             <button
+               key={role.roleId}
+               onClick={() => setActiveRole(role.roleId as any)}
+               className={`px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all duration-300 border cursor-pointer ${
+                 activeRole === role.roleId
+                 ? 'bg-green-500/10 border-green-500 text-white shadow-[0_0_20px_rgba(0,255,0,0.2)] scale-105'
+                 : 'bg-transparent border-white/20 text-kult-muted hover:border-white hover:text-white'
+               }`}
+             >
+               {role.roleName}
+             </button>
+           ))}
+         </div>
+
+         {/* Split Screen Layout */}
+         <div className={`grid md:grid-cols-2 gap-8 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+
+            {/* Left Column: With KULT */}
+            <div className="relative border-l-4 border-green-500 bg-white/5 p-8 rounded-r-xl">
+               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500/50 to-transparent"></div>
+               <h3 className="text-2xl font-serif text-white mb-8 flex items-center gap-3">
+                 <Zap className="text-green-500 fill-current" /> С KULT
+               </h3>
+
+               <div className="space-y-12">
+                 {data.kultPath.stages.map((stage, idx) => (
+                   <div key={idx} className="relative pl-8 border-l border-green-500/30 pb-2 last:pb-0">
+                     <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_10px_#00ff00]"></div>
+                     <h4 className="text-lg font-bold text-white mb-2">{stage.title}</h4>
+                     <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
+                     <div className="flex items-center justify-between mt-2 p-3 bg-green-500/10 rounded border border-green-500/20">
+                        <span className="text-green-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
+                        <span className="text-white font-bold text-sm">{stage.time}</span>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+
+               <div className="mt-12 pt-8 border-t border-white/10 text-center">
+                 <div className="text-kult-muted text-xs uppercase tracking-widest mb-2">Итого</div>
+                 <div className="text-3xl font-bold text-green-500">{data.kultPath.totalTime}</div>
+                 <p className="text-sm text-green-400/80 mt-2">{data.kultPath.summary}</p>
+               </div>
+            </div>
+
+            {/* Right Column: Independently */}
+            <div className="relative border-l-4 border-gray-600 bg-white/5 p-8 rounded-r-xl opacity-80 hover:opacity-100 transition-opacity">
+               <h3 className="text-2xl font-serif text-white mb-8 flex items-center gap-3">
+                 <Lock className="text-gray-500" /> Самостоятельно
+               </h3>
+
+               <div className="space-y-12">
+                 {data.tradPath.stages.map((stage, idx) => (
+                   <div key={idx} className="relative pl-8 border-l border-gray-600/30 pb-2 last:pb-0">
+                     <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-gray-600 rounded-full"></div>
+                     <h4 className="text-lg font-bold text-white mb-2">{stage.title}</h4>
+                     <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
+                     <div className="flex items-center justify-between mt-2 p-3 bg-white/5 rounded border border-white/10">
+                        <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
+                        <span className="text-gray-300 font-bold text-sm">{stage.time}</span>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+
+               <div className="mt-12 pt-8 border-t border-white/10 text-center">
+                 <div className="text-kult-muted text-xs uppercase tracking-widest mb-2">Итого</div>
+                 <div className="text-3xl font-bold text-gray-400">{data.tradPath.totalTime}</div>
+                 <p className="text-sm text-gray-500 mt-2">{data.tradPath.summary}</p>
+               </div>
+            </div>
+
+         </div>
+       </div>
+    </section>
+  );
+};
+
 // --- New Components for Catalog & Trust ---
 
 const ProjectsCatalog: React.FC = () => {
@@ -387,16 +572,6 @@ const GrowthTrackSection: React.FC = () => (
 
 const ROLES: RoleFeature[] = [
   {
-    icon: Target,
-    title: "Лидер мнений",
-    points: [
-      "Личный продюсер подбирает продукты под твою аудиторию",
-      "База релевантных проектов для долгосрочных партнерств",
-      "Доля от прибыли вместо копеек за разовую интеграцию",
-      "Приоритет в партнерских связках после прохождения челленджа"
-    ]
-  },
-  {
     icon: Rocket,
     title: "Фаундер",
     points: [
@@ -415,8 +590,19 @@ const ROLES: RoleFeature[] = [
       "Доля от прибыли = реальный заработок на результате",
       "Выбираешь проекты, в которые веришь"
     ]
+  },
+  {
+    icon: Target,
+    title: "Лидер мнений",
+    points: [
+      "Личный продюсер подбирает продукты под твою аудиторию",
+      "База релевантных проектов для долгосрочных партнерств",
+      "Доля от прибыли вместо копеек за разовую интеграцию",
+      "Приоритет в партнерских связках после прохождения челленджа"
+    ]
   }
 ];
+
 
 const COMPARISONS: ComparisonItem[] = [
   {
@@ -561,12 +747,18 @@ const App: React.FC = () => {
 
             <FadeInSection delay={600}>
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-                <button onClick={openModal} className="w-full sm:w-auto px-8 py-5 bg-white text-black font-bold text-xs tracking-[0.2em] hover:bg-gray-200 transition-all uppercase flex items-center justify-center gap-3 group">
-                  Подать заявку
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <button
+                  onClick={() => scrollToSection('split-comparison')}
+                  className="w-full sm:w-auto px-8 py-5 bg-[#00ff00] text-black font-bold text-xs tracking-[0.2em] hover:bg-[#00cc00] hover:shadow-[0_8px_24px_rgba(0,255,0,0.4)] hover:scale-105 transition-all uppercase flex items-center justify-center gap-3 group border-none"
+                  style={{ height: '64px' }} // +8px visual height
+                >
+                  С KULT <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button onClick={() => scrollToSection('concept')} className="w-full sm:w-auto px-8 py-5 border border-white/20 text-white font-bold text-xs tracking-[0.2em] hover:bg-white/5 transition-colors uppercase">
-                  Читать Манифест
+                <button
+                   onClick={() => scrollToSection('split-comparison')}
+                   className="w-full sm:w-auto px-8 py-5 border border-white/20 text-white font-bold text-xs tracking-[0.2em] hover:bg-white/5 hover:translate-y-[-2px] transition-all uppercase h-14"
+                >
+                  Традиционный путь
                 </button>
               </div>
             </FadeInSection>
@@ -682,6 +874,8 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <SplitScreenComparison />
 
       <Marquee text="DAO GOVERNANCE • NO SALARIES • JUST RESULTS •" reverse={true} />
 

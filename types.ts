@@ -29,3 +29,24 @@ export interface FormData {
   telegram: string;
   consent: boolean;
 }
+
+// New Types for Split Screen Comparison
+export interface StageData {
+  title: string;
+  description: string;
+  result: string;
+  time: string;
+}
+
+export interface PathData {
+  stages: StageData[];
+  totalTime: string;
+  summary: string;
+}
+
+export interface RoleComparisonData {
+  roleId: string; // 'founder' | 'marketer' | 'influencer'
+  roleName: string;
+  kultPath: PathData;
+  tradPath: PathData;
+}
