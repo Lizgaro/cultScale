@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Target, 
-  Rocket, 
-  BarChart3, 
-  ArrowRight, 
-  CheckCircle2, 
-  XCircle, 
+import {
+  Target,
+  Rocket,
+  BarChart3,
+  ArrowRight,
+  CheckCircle2,
+  XCircle,
   Menu,
   X,
   MessageSquare,
@@ -25,13 +25,13 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
     roleName: 'Фаундер',
     kultPath: {
       stages: [
-        { title: "Матчинг", description: "В Kult у тебя есть возможность выбрать команду.", result: "Партнер найден", time: "24 часа" },
+        { title: "Матчинг", description: "Выход на маркетологов и лидеров мнений для работы за %.", result: "Партнер найден", time: "24 часа" },
         { title: "MVP", description: "Запуск первой версии продукта с готовой командой.", result: "Запуск", time: "1 неделя" },
         { title: "Трекшн", description: "Первые продажи через базу партнеров.", result: "Выручка", time: "2 недели" },
-        { title: "Масштаб", description: "Выход на полную окупаемость и рост.", result: "Profit", time: "1 месяц" }
+        { title: "Масштаб", description: "Масштаб за недели–месяцы, не годы.", result: "Profit", time: "1 месяц" }
       ],
       totalTime: "1.5 месяца",
-      summary: "До результата. Без затрат на ФОТ."
+      summary: "возможность расти быстро вообще без привлечения денежных инвестиций"
     },
     tradPath: {
       stages: [
@@ -49,23 +49,24 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
     roleName: 'Маркетолог',
     kultPath: {
       stages: [
-        { title: "Выбор", description: "Доступ к базе проектов с подтвержденным спросом.", result: "Проект выбран", time: "1 день" },
-        { title: "Условия", description: "Подписание смарт-контракта на долю от прибыли.", result: "Доля 30-50%", time: "Сразу" },
-        { title: "Запуск", description: "Запуск трафика на готовый оффер.", result: "Лиды", time: "3 дня" },
-        { title: "Доход", description: "Получение первых дивидендов от продаж.", result: "Кэш", time: "2 недели" }
+        { title: "Челлендж", description: "подключение к проект за 7 дней - быстрый вход - челлендж", result: "Старт", time: "7 дней" },
+        { title: "Тестовый пилот", description: "100-500к - 100 часов - тестовый пилот", result: "100-500к", time: "100 часов" },
+        { title: "Вход в долю бизнеса", description: "300-1,2 млн - 3х - вход в долю бизнеса", result: "300к-1,2 млн", time: "3х" },
+        { title: "Скейл", description: "900-3,6 - 3х - скейл", result: "900к-3,6 млн", time: "3х" },
+        { title: "Скейл-агентство", description: "1,8-7,2 за год с 1-го проекта, строит систему агентства с нами и может брать до 20 проектов в параллель", result: "1,8-7,2 млн/год", time: "∞" }
       ],
-      totalTime: "2 недели",
-      summary: "Выход на доход. Без поиска клиентов."
+      totalTime: "От 7 дней до скейла",
+      summary: "От профита 100к до 2+ млн/мес на Profit Share"
     },
     tradPath: {
       stages: [
-        { title: "Резюме", description: "Рассылка откликов, собеседования с HR.", result: "Ожидание", time: "1 месяц" },
-        { title: "Оффер", description: "Торг за фикс + призрачные KPI.", result: "Потолок з/п", time: "1 неделя" },
-        { title: "Адаптация", description: "Изучение продукта, бюрократия.", result: "Рутина", time: "1 месяц" },
-        { title: "Работа", description: "Отчеты, согласования, правки.", result: "Выгорание", time: "Всегда" }
+        { title: "1 год", description: "Заклад выгорания, рост ~5%/мес. Клянчить бюджеты вместо быстрых тестов по трафику.", result: "~100к", time: "12 мес" },
+        { title: "2 год", description: "Потолок роста на найме. Низкая мотивация команды без доли в прибыли.", result: "~200к", time: "12 мес" },
+        { title: "3 год", description: "Стагнация без доли в бизнесе. Стагнация и выгорание без доли в компании.", result: "~300к", time: "12 мес" },
+        { title: "Финал", description: "Выгорание / увольнение / поиск нового места.", result: "Потеря", time: "?" }
       ],
-      totalTime: "2.5 месяца",
-      summary: "До первой зарплаты."
+      totalTime: "3+ года",
+      summary: "Потолок ~300к и выгорание."
     }
   },
   {
@@ -73,19 +74,20 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
     roleName: 'Лидер Мнений',
     kultPath: {
       stages: [
-        { title: "Идея", description: "Продюсер предлагает продукт под вашу аудиторию.", result: "Концепт", time: "2 дня" },
-        { title: "Производство", description: "Партнеры создают продукт и воронку.", result: "Готово", time: "1 неделя" },
-        { title: "Анонс", description: "Прогрев и анонс по своей базе.", result: "Охваты", time: "3 дня" },
-        { title: "Активы", description: "Получение доли в бизнесе.", result: "Пассив", time: "Навсегда" }
+        { title: "Новичок", description: "запуск контент завода 160к охвата за мес", result: "160к охвата", time: "1 мес" },
+        { title: "Партнер", description: "охваты 15к/пост - 400К пилот: эфир + посты", result: "400к пилот", time: "2 мес" },
+        { title: "Амбасадор", description: "охваты и доход растет х3 в квартал через продюсирование маркетологом", result: "1,2 млн/мес", time: "квартал" },
+        { title: "Лидер мнений", description: "охваты 50к пост - качает 5 продуктов в мес", result: "3 млн/мес", time: "6 мес" },
+        { title: "Совладелец", description: "раскачивает новые проекты и получает капитализацию - игра в долгую на млн $", result: "млн $", time: "долгосрок" }
       ],
-      totalTime: "2 недели",
-      summary: "Свой бизнес, а не разовая реклама."
+      totalTime: "От 1 мес до совладельца",
+      summary: "От первых 100к охвата до 5 млн руб и долей на млн $ как совладелец"
     },
     tradPath: {
       stages: [
         { title: "Ожидание", description: "Пассивное ожидание заявок на рекламу.", result: "Тишина", time: "?" },
         { title: "ТЗ", description: "Согласование жесткого ТЗ от заказчика.", result: "Рамки", time: "3 дня" },
-        { title: "Пост", description: "Публикация рекламы (часто скам).", result: "Оплата", time: "1 день" },
+        { title: "Пост", description: "Публикация рекламы. Большинство рекламодателей не возвращаются повторно.", result: "Оплата", time: "1 день" },
         { title: "Поиск", description: "Снова поиск рекламодателя.", result: "Нестабильность", time: "Постоянно" }
       ],
       totalTime: "Разово",
@@ -94,6 +96,7 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
   }
 ];
 
+
 const FadeInSection: React.FC<{ children: React.ReactNode; delay?: number; className?: string }> = ({ children, delay = 0, className = "" }) => {
   const [isVisible, setVisible] = useState(false);
   const domRef = useRef<HTMLDivElement>(null);
@@ -101,7 +104,7 @@ const FadeInSection: React.FC<{ children: React.ReactNode; delay?: number; class
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => setVisible(entry.isIntersecting));
-    }, { threshold: 0.1 }); 
+    }, { threshold: 0.1 });
 
     const currentElement = domRef.current;
     if (currentElement) observer.observe(currentElement);
@@ -114,9 +117,8 @@ const FadeInSection: React.FC<{ children: React.ReactNode; delay?: number; class
   return (
     <div
       ref={domRef}
-      className={`transition-all duration-1000 ease-out transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      } ${className}`}
+      className={`transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
@@ -154,7 +156,7 @@ const Marquee: React.FC<{ text: string; reverse?: boolean }> = ({ text, reverse 
 
 const ChatSimulation: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  
+
   const script: ChatMessage[] = [
     { sender: 'Founder', text: 'Продукт готов. Метрики >30%. Нужен масштаб.', time: '10:42' },
     { sender: 'System', text: 'Поиск партнера...', time: '10:42' },
@@ -195,18 +197,16 @@ const ChatSimulation: React.FC = () => {
       </div>
       <div className="space-y-4 h-[320px] overflow-hidden relative">
         {messages.map((msg, idx) => (
-          <div 
-            key={idx} 
-            className={`flex flex-col animate-float ${
-              msg.sender === 'System' ? 'items-center' : 
+          <div
+            key={idx}
+            className={`flex flex-col animate-float ${msg.sender === 'System' ? 'items-center' :
               msg.sender === 'Founder' ? 'items-end' : 'items-start'
-            }`}
+              }`}
           >
-            <div className={`max-w-[85%] rounded-lg p-3 text-sm ${
-              msg.sender === 'System' ? 'bg-white/5 text-kult-muted text-xs border border-white/5' :
+            <div className={`max-w-[85%] rounded-lg p-3 text-sm ${msg.sender === 'System' ? 'bg-white/5 text-kult-muted text-xs border border-white/5' :
               msg.sender === 'Founder' ? 'bg-white text-black' :
-              'bg-kult-gray border border-white/20 text-white'
-            }`}>
+                'bg-kult-gray border border-white/20 text-white'
+              }`}>
               {msg.sender !== 'System' && <div className="text-[10px] opacity-50 mb-1 font-bold uppercase">{msg.sender}</div>}
               {msg.text}
             </div>
@@ -250,7 +250,7 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
           </p>
 
           <div className="mb-8">
-             <label className="flex items-start gap-3 cursor-pointer group p-3 border border-white/5 rounded hover:bg-white/5 transition-colors">
+            <label className="flex items-start gap-3 cursor-pointer group p-3 border border-white/5 rounded hover:bg-white/5 transition-colors">
               <div className={`w-5 h-5 border flex items-center justify-center transition-colors flex-shrink-0 mt-0.5 ${agreed ? 'bg-white border-white' : 'border-white/30 group-hover:border-white'}`}>
                 {agreed && <CheckCircle2 size={12} className="text-black" />}
               </div>
@@ -287,13 +287,13 @@ const ComparisonRow: React.FC<{ title: string; traditional: string; kult: string
       <h4 className="text-xl font-serif text-white">{title}</h4>
     </div>
     <div className="p-6 md:p-8 flex items-center border-r border-white/10 md:border-r-0 border-b md:border-b-0 border-white/10 text-kult-muted opacity-60 group-hover:opacity-100 transition-opacity">
-       <XCircle size={20} className="text-red-500 mr-3 flex-shrink-0" />
-       <span className="text-sm">{traditional}</span>
+      <XCircle size={20} className="text-red-500 mr-3 flex-shrink-0" />
+      <span className="text-sm">{traditional}</span>
     </div>
     <div className="p-6 md:p-8 flex items-center bg-white/5 md:bg-transparent relative overflow-hidden">
-       <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-       <CheckCircle2 size={20} className="text-green-500 mr-3 flex-shrink-0 relative z-10" />
-       <span className="text-sm text-white font-medium relative z-10">{kult}</span>
+      <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <CheckCircle2 size={20} className="text-green-500 mr-3 flex-shrink-0 relative z-10" />
+      <span className="text-sm text-white font-medium relative z-10">{kult}</span>
     </div>
   </div>
 );
@@ -337,125 +337,124 @@ const SplitScreenComparison: React.FC = () => {
 
   return (
     <section id="split-comparison" ref={sectionRef} className="py-32 px-6 bg-kult-black relative overflow-hidden z-30">
-       <div className="max-w-7xl mx-auto">
-         <SectionHeader title="СРАВНЕНИЕ ПУТИ" subtitle="Выберите роль, чтобы увидеть разницу" centered />
+      <div className="max-w-7xl mx-auto">
+        <SectionHeader title="ТВОЙ ПУТЬ РОСТА" subtitle="Выбери свою роль и посмотри разницу между традиционным путём и культурой маркетинга." centered />
 
-         {/* Usage Instruction */}
-         <div className="text-center mb-10 -mt-12 relative z-20">
-            <p className="inline-block py-2 px-4 rounded-full bg-white/5 border border-white/10 text-kult-muted text-xs md:text-sm font-mono tracking-wide">
-              1) Выбери роль → 2) Выбери путь → 3) Нажми на этап
-            </p>
-         </div>
+        {/* Usage Instruction */}
+        <div className="text-center mb-10 -mt-12 relative z-20">
+          <p className="inline-block py-2 px-4 rounded-full bg-white/5 border border-white/10 text-kult-muted text-xs md:text-sm font-mono tracking-wide">
+            1) Выбери роль → 2) Выбери путь → 3) Нажми на этап
+          </p>
+        </div>
 
-         {/* Role Selectors */}
-         <div className="flex flex-wrap justify-center gap-4 mb-16 relative z-20">
-           {ROLE_COMPARISON_DATA.map((role) => (
-             <button
-               key={role.roleId}
-               onClick={() => setActiveRole(role.roleId as any)}
-               className={`px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all duration-300 border cursor-pointer ${
-                 activeRole === role.roleId
-                 ? 'bg-green-500/10 border-green-500 text-white shadow-[0_0_20px_rgba(0,255,0,0.2)] scale-105'
-                 : 'bg-transparent border-white/20 text-kult-muted hover:border-white hover:text-white'
-               }`}
-             >
-               {role.roleName}
-             </button>
-           ))}
-         </div>
+        {/* Role Selectors */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16 relative z-20">
+          {ROLE_COMPARISON_DATA.map((role) => (
+            <button
+              key={role.roleId}
+              onClick={() => setActiveRole(role.roleId as any)}
+              className={`px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all duration-300 border cursor-pointer ${activeRole === role.roleId
+                ? 'bg-green-500/10 border-green-500 text-white shadow-[0_0_20px_rgba(0,255,0,0.2)] scale-105'
+                : 'bg-transparent border-white/20 text-kult-muted hover:border-white hover:text-white'
+                }`}
+            >
+              {role.roleName}
+            </button>
+          ))}
+        </div>
 
-         {/* Split Screen Layout */}
-         <div className={`grid md:grid-cols-2 gap-8 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+        {/* Split Screen Layout */}
+        <div className={`grid md:grid-cols-2 gap-8 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
 
-            {/* Left Column: With KULT */}
-            <div className="relative border-l-4 border-green-500 bg-white/5 p-8 rounded-r-xl">
-               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500/50 to-transparent"></div>
-               <h3 className="text-2xl font-serif text-white mb-8 flex items-center gap-3">
-                 <Zap className="text-green-500 fill-current" /> С KULT
-               </h3>
+          {/* Left Column: With KULT */}
+          <div className="relative border-l-4 border-green-500 bg-white/5 p-8 rounded-r-xl">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500/50 to-transparent"></div>
+            <h3 className="text-2xl font-serif text-white mb-8 flex items-center gap-3">
+              <Zap className="text-green-500 fill-current" /> С культурой маркетинга
+            </h3>
 
-               <div className="space-y-4">
-                 {data.kultPath.stages.map((stage, idx) => {
-                   const isOpen = leftOpenIndex === idx;
-                   return (
-                     <div
-                        key={idx}
-                        className={`relative pl-8 border-l border-green-500/30 transition-all duration-300 cursor-pointer group ${isOpen ? 'pb-6' : 'pb-2'}`}
-                        onClick={() => toggleLeft(idx)}
-                     >
-                       <div className={`absolute -left-[5px] top-1 w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_10px_#00ff00] transition-transform ${isOpen ? 'scale-125' : ''}`}></div>
+            <div className="space-y-4">
+              {data.kultPath.stages.map((stage, idx) => {
+                const isOpen = leftOpenIndex === idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`relative pl-8 border-l border-green-500/30 transition-all duration-300 cursor-pointer group ${isOpen ? 'pb-6' : 'pb-2'}`}
+                    onClick={() => toggleLeft(idx)}
+                  >
+                    <div className={`absolute -left-[5px] top-1 w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_10px_#00ff00] transition-transform ${isOpen ? 'scale-125' : ''}`}></div>
 
-                       <div className="flex items-center justify-between">
-                         <h4 className={`text-lg font-bold transition-colors ${isOpen ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>{stage.title}</h4>
-                         <ChevronDown size={20} className={`text-green-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-                       </div>
+                    <div className="flex items-center justify-between">
+                      <h4 className={`text-lg font-bold transition-colors ${isOpen ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>{stage.title}</h4>
+                      <ChevronDown size={20} className={`text-green-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                    </div>
 
-                       <div className={`grid transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0'}`}>
-                         <div className="overflow-hidden">
-                           <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
-                           <div className="flex items-center justify-between p-3 bg-green-500/10 rounded border border-green-500/20">
-                              <span className="text-green-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
-                              <span className="text-white font-bold text-sm">{stage.time}</span>
-                           </div>
-                         </div>
-                       </div>
-                     </div>
-                   );
-                 })}
-               </div>
-
-               <div className="mt-12 pt-8 border-t border-white/10 text-center">
-                 <div className="text-kult-muted text-xs uppercase tracking-widest mb-2">Итого</div>
-                 <div className="text-3xl font-bold text-green-500">{data.kultPath.totalTime}</div>
-                 <p className="text-sm text-green-400/80 mt-2">{data.kultPath.summary}</p>
-               </div>
+                    <div className={`grid transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0'}`}>
+                      <div className="overflow-hidden">
+                        <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
+                        <div className="flex items-center justify-between p-3 bg-green-500/10 rounded border border-green-500/20">
+                          <span className="text-green-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
+                          <span className="text-white font-bold text-sm">{stage.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Right Column: Independently */}
-            <div className="relative border-l-4 border-gray-600 bg-white/5 p-8 rounded-r-xl opacity-80 hover:opacity-100 transition-opacity">
-               <h3 className="text-2xl font-serif text-white mb-8 flex items-center gap-3">
-                 <Lock className="text-gray-500" /> Самостоятельно
-               </h3>
+            <div className="mt-12 pt-8 border-t border-white/10 text-center">
+              <div className="text-kult-muted text-xs uppercase tracking-widest mb-2">Итого</div>
+              <div className="text-3xl font-bold text-green-500">{data.kultPath.totalTime}</div>
+              <p className="text-sm text-green-400/80 mt-2">{data.kultPath.summary}</p>
+            </div>
+          </div>
 
-               <div className="space-y-4">
-                 {data.tradPath.stages.map((stage, idx) => {
-                   const isOpen = rightOpenIndex === idx;
-                   return (
-                     <div
-                        key={idx}
-                        className={`relative pl-8 border-l border-gray-600/30 transition-all duration-300 cursor-pointer group ${isOpen ? 'pb-6' : 'pb-2'}`}
-                        onClick={() => toggleRight(idx)}
-                     >
-                       <div className={`absolute -left-[5px] top-1 w-2.5 h-2.5 bg-gray-600 rounded-full transition-transform ${isOpen ? 'scale-125' : ''}`}></div>
+          {/* Right Column: Independently */}
+          <div className="relative border-l-4 border-gray-600 bg-white/5 p-8 rounded-r-xl opacity-80 hover:opacity-100 transition-opacity">
+            <h3 className="text-2xl font-serif text-white mb-8 flex items-center gap-3">
+              <Lock className="text-gray-500" /> Самостоятельно
+            </h3>
 
-                       <div className="flex items-center justify-between">
-                         <h4 className={`text-lg font-bold transition-colors ${isOpen ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>{stage.title}</h4>
-                         <ChevronDown size={20} className={`text-gray-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-                       </div>
+            <div className="space-y-4">
+              {data.tradPath.stages.map((stage, idx) => {
+                const isOpen = rightOpenIndex === idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`relative pl-8 border-l border-gray-600/30 transition-all duration-300 cursor-pointer group ${isOpen ? 'pb-6' : 'pb-2'}`}
+                    onClick={() => toggleRight(idx)}
+                  >
+                    <div className={`absolute -left-[5px] top-1 w-2.5 h-2.5 bg-gray-600 rounded-full transition-transform ${isOpen ? 'scale-125' : ''}`}></div>
 
-                       <div className={`grid transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0'}`}>
-                         <div className="overflow-hidden">
-                           <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
-                           <div className="flex items-center justify-between p-3 bg-white/5 rounded border border-white/10">
-                              <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
-                              <span className="text-gray-300 font-bold text-sm">{stage.time}</span>
-                           </div>
-                         </div>
-                       </div>
-                     </div>
-                   );
-                 })}
-               </div>
+                    <div className="flex items-center justify-between">
+                      <h4 className={`text-lg font-bold transition-colors ${isOpen ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>{stage.title}</h4>
+                      <ChevronDown size={20} className={`text-gray-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                    </div>
 
-               <div className="mt-12 pt-8 border-t border-white/10 text-center">
-                 <div className="text-kult-muted text-xs uppercase tracking-widest mb-2">Итого</div>
-                 <div className="text-3xl font-bold text-gray-400">{data.tradPath.totalTime}</div>
-                 <p className="text-sm text-gray-500 mt-2">{data.tradPath.summary}</p>
-               </div>
+                    <div className={`grid transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0'}`}>
+                      <div className="overflow-hidden">
+                        <p className="text-sm text-kult-muted mb-3">{stage.description}</p>
+                        <div className="flex items-center justify-between p-3 bg-white/5 rounded border border-white/10">
+                          <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Результат: {stage.result}</span>
+                          <span className="text-gray-300 font-bold text-sm">{stage.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-         </div>
-       </div>
+            <div className="mt-12 pt-8 border-t border-white/10 text-center">
+              <div className="text-kult-muted text-xs uppercase tracking-widest mb-2">Итого</div>
+              <div className="text-3xl font-bold text-gray-400">{data.tradPath.totalTime}</div>
+              <p className="text-sm text-gray-500 mt-2">{data.tradPath.summary}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
   );
 };
@@ -465,46 +464,46 @@ const SplitScreenComparison: React.FC = () => {
 const TurnkeySection: React.FC = () => (
   <section className="py-24 px-6 bg-kult-black relative z-30 border-t border-white/5">
     <div className="max-w-4xl mx-auto">
-       <div className="bg-white/5 backdrop-blur-sm p-8 md:p-12 border border-white/10 rounded-2xl relative overflow-hidden group hover:border-white/20 transition-colors">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+      <div className="bg-white/5 backdrop-blur-sm p-8 md:p-12 border border-white/10 rounded-2xl relative overflow-hidden group hover:border-white/20 transition-colors">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
-          <h3 className="text-2xl md:text-3xl font-serif text-white mb-8 leading-tight">
-            Мы можем подобрать тебе маркетолога с опытом от 3 лет и выстроить всю систему партнерского маркетинга под ключ.
-          </h3>
+        <h3 className="text-2xl md:text-3xl font-serif text-white mb-8 leading-tight">
+          Мы можем подобрать тебе маркетолога с опытом от 3 лет и выстроить всю систему партнерского маркетинга под ключ.
+        </h3>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">📌 Что входит:</h4>
-              <ul className="space-y-4 text-kult-muted">
-                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Подбор маркетолога и ЛМ под твой проект</li>
-                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Упаковка оффера и воронок</li>
-                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Запуск гипотез за 3-4 месяца</li>
-                <li className="flex items-start gap-3"><span className="text-green-500">→</span> Сопровождение до первых продаж</li>
-              </ul>
-            </div>
-
-            <div>
-               <h4 className="text-lg font-bold text-white mb-6">Материалы и примеры работ:</h4>
-               <div className="space-y-4">
-                 <a href="https://scale-x.ru/b" target="_blank" rel="noopener noreferrer" className="block text-white hover:text-green-400 transition-colors group/link flex items-center gap-2">
-                   <span className="text-green-500 group-hover/link:translate-x-1 transition-transform">→</span>
-                   <span className="underline decoration-white/30 underline-offset-4 group-hover/link:decoration-green-400">Лендинг: scale-x.ru/b</span>
-                 </a>
-                 <a href="https://www.youtube.com/playlist?list=PLjRb9QSd9LLRDlsB37KhUJm4rpH7OfrKl" target="_blank" rel="noopener noreferrer" className="block text-white hover:text-green-400 transition-colors group/link flex items-center gap-2">
-                   <span className="text-green-500 group-hover/link:translate-x-1 transition-transform">→</span>
-                   <span className="underline decoration-white/30 underline-offset-4 group-hover/link:decoration-green-400">Плейлист с кейсами</span>
-                 </a>
-               </div>
-            </div>
+        <div className="grid md:grid-cols-2 gap-12">
+          <div>
+            <h4 className="text-lg font-bold text-white mb-6 flex items-center gap-2">📌 Что входит:</h4>
+            <ul className="space-y-4 text-kult-muted">
+              <li className="flex items-start gap-3"><span className="text-green-500">→</span> Подбор маркетолога и ЛМ под твой проект</li>
+              <li className="flex items-start gap-3"><span className="text-green-500">→</span> Упаковка оффера и воронок</li>
+              <li className="flex items-start gap-3"><span className="text-green-500">→</span> Запуск гипотез за 3-4 месяца</li>
+              <li className="flex items-start gap-3"><span className="text-green-500">→</span> Сопровождение до первых продаж</li>
+            </ul>
           </div>
 
-          <div className="mt-10 pt-8 border-t border-white/10">
-            <p className="text-white text-lg">
-              Готов обсудить детали? Запишись на встречу с <a href="https://t.me/kostya_fun" target="_blank" rel="noopener noreferrer" className="text-green-500 font-bold hover:text-green-400 transition-colors">@kostya_fun</a> — он расскажет, как это работает конкретно для твоего проекта.
-            </p>
+          <div>
+            <h4 className="text-lg font-bold text-white mb-6">Материалы и примеры работ:</h4>
+            <div className="space-y-4">
+              <a href="https://scale-x.ru/b" target="_blank" rel="noopener noreferrer" className="block text-white hover:text-green-400 transition-colors group/link flex items-center gap-2">
+                <span className="text-green-500 group-hover/link:translate-x-1 transition-transform">→</span>
+                <span className="underline decoration-white/30 underline-offset-4 group-hover/link:decoration-green-400">Лендинг: scale-x.ru/b</span>
+              </a>
+              <a href="https://www.youtube.com/playlist?list=PLjRb9QSd9LLRDlsB37KhUJm4rpH7OfrKl" target="_blank" rel="noopener noreferrer" className="block text-white hover:text-green-400 transition-colors group/link flex items-center gap-2">
+                <span className="text-green-500 group-hover/link:translate-x-1 transition-transform">→</span>
+                <span className="underline decoration-white/30 underline-offset-4 group-hover/link:decoration-green-400">Плейлист с кейсами</span>
+              </a>
+            </div>
           </div>
+        </div>
 
-       </div>
+        <div className="mt-10 pt-8 border-t border-white/10">
+          <p className="text-white text-lg">
+            Готов обсудить детали? Запишись на встречу с <a href="https://t.me/kostya_fun" target="_blank" rel="noopener noreferrer" className="text-green-500 font-bold hover:text-green-400 transition-colors">@kostya_fun</a> — он расскажет, как это работает конкретно для твоего проекта.
+          </p>
+        </div>
+
+      </div>
     </div>
   </section>
 );
@@ -530,14 +529,23 @@ const ProjectsCatalog: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <SectionHeader title="ПРОЕКТЫ ЭКОСИСТЕМЫ" subtitle="От простых сервисов до сложных бизнес-решений" />
 
+        {/* Легенда меток */}
+        <div className="mb-12 p-4 bg-white/5 border border-white/10 rounded-lg">
+          <p className="text-sm text-kult-muted text-center">
+            <span className="text-green-500 font-bold">LIVE</span> — проект уже запущен ·
+            <span className="text-yellow-500 font-bold"> SOON</span> — запуск в ближайшее время ·
+            <span className="text-blue-500 font-bold"> REVENUE</span> — проект уже приносит выручку
+          </p>
+        </div>
+
         <div className="mb-16">
-          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><Zap size={20}/> Для людей и команд</h3>
+          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><Zap size={20} /> Для людей и команд</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {simpleProjects.map((p, i) => (
               <div key={i} className="p-6 border border-white/10 bg-white/5 rounded-lg hover:border-white/30 transition-all">
                 <div className="flex justify-between items-start mb-4">
                   <span className="text-2xl">{p.icon}</span>
-                  {p.status === 'Active' ? <CheckCircle2 size={16} className="text-green-500"/> : <span className="text-[10px] uppercase border border-white/20 px-2 py-1 rounded text-kult-muted">Скоро</span>}
+                  {p.status === 'Active' ? <CheckCircle2 size={16} className="text-green-500" /> : <span className="text-[10px] uppercase border border-white/20 px-2 py-1 rounded text-kult-muted">Скоро</span>}
                 </div>
                 <h4 className="text-lg font-bold text-white mb-2">{p.title}</h4>
                 <p className="text-sm text-kult-muted">{p.desc}</p>
@@ -547,13 +555,13 @@ const ProjectsCatalog: React.FC = () => {
         </div>
 
         <div className="mb-16">
-          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><BarChart3 size={20}/> Для бизнеса</h3>
+          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><BarChart3 size={20} /> Для бизнеса</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {heavyProjects.map((p, i) => (
               <div key={i} className="p-6 border border-white/10 bg-white/5 rounded-lg hover:border-white/30 transition-all">
-                 <div className="flex justify-between items-start mb-4">
+                <div className="flex justify-between items-start mb-4">
                   <span className="text-2xl">{p.icon}</span>
-                  <CheckCircle2 size={16} className="text-green-500"/>
+                  <CheckCircle2 size={16} className="text-green-500" />
                 </div>
                 <h4 className="text-lg font-bold text-white mb-2">{p.title}</h4>
                 <p className="text-sm text-kult-muted">{p.desc}</p>
@@ -572,7 +580,7 @@ const ProjectsCatalog: React.FC = () => {
               <p className="text-kult-muted max-w-lg">Платформа ИИ-ассистентов нового поколения для малого бизнеса.</p>
             </div>
             <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20 backdrop-blur-md">
-              <Zap size={32} className="text-white"/>
+              <Zap size={32} className="text-white" />
             </div>
           </div>
         </div>
@@ -583,45 +591,45 @@ const ProjectsCatalog: React.FC = () => {
 };
 
 const TrustSection: React.FC = () => (
-  <section className="py-24 px-6 bg-kult-dark relative overflow-hidden">
+  <section id="trust" className="py-24 px-6 bg-kult-dark relative overflow-hidden">
     {/* Background decoration to replace image visual weight */}
     <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
 
     <div className="max-w-4xl mx-auto text-center relative z-10">
-        <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-8 leading-tight">
-          ДОВЕРИЕ В ЦИФРАХ
-        </h2>
-        <p className="text-kult-muted text-lg mb-16 max-w-2xl mx-auto">
-          Мы не продаем курсы. Мы строим бизнесы. Результаты наших партнеров говорят громче любых обещаний.
-        </p>
+      <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-8 leading-tight">
+        ДОВЕРИЕ В ЦИФРАХ
+      </h2>
+      <p className="text-kult-muted text-lg mb-16 max-w-2xl mx-auto">
+        Мы не продаем курсы. Мы строим бизнесы. Результаты наших партнеров говорят громче любых обещаний.
+      </p>
 
-        <div className="grid md:grid-cols-3 gap-12">
-          <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
-            <div className="text-4xl font-bold text-white mb-2">+206 млн ₽</div>
-            <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">Парфюм в Telegram</div>
-            <div className="text-[10px] text-white/50">Старт с 30к ₽</div>
-          </div>
-
-          <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
-            <div className="text-4xl font-bold text-white mb-2">+200 млн ₽</div>
-            <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">EdTech Кейс</div>
-            <div className="text-[10px] text-white/50">GeekBrains</div>
-          </div>
-
-            <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
-            <div className="text-4xl font-bold text-white mb-2">700 млн ₽</div>
-            <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">Общая выручка</div>
-            <div className="text-[10px] text-white/50">17 проектов</div>
-          </div>
+      <div className="grid md:grid-cols-3 gap-12">
+        <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
+          <div className="text-4xl font-bold text-white mb-2">+206 млн ₽</div>
+          <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">Парфюм в Telegram</div>
+          <div className="text-[10px] text-white/50">С 30к бюджета на старте за год в новом канале трафика с командой маркетологов в партнерстве</div>
         </div>
 
-        <a
-          href="https://youtu.be/tynzX-wg8QI?si=jAtil9a5mukGQtuR"
-          target="_blank"
-          className="mt-12 inline-flex items-center gap-3 text-white border border-white/20 px-8 py-4 rounded hover:bg-white hover:text-black transition-all group"
-        >
-          <Play size={18} className="fill-current"/> Смотреть разбор кейсов
-        </a>
+        <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
+          <div className="text-4xl font-bold text-white mb-2">+200 млн ₽</div>
+          <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">EdTech Кейс</div>
+          <div className="text-[10px] text-white/50">С бюджета 240к на старте за год в новом канале трафика с командой маркетологов в партнерстве</div>
+        </div>
+
+        <div className="p-6 border border-white/10 rounded-2xl bg-white/5">
+          <div className="text-4xl font-bold text-white mb-2">700 млн ₽</div>
+          <div className="text-xs text-kult-muted uppercase tracking-wider mb-2">Общая выручка</div>
+          <div className="text-[10px] text-white/50">Портфель партнерств</div>
+        </div>
+      </div>
+
+      <a
+        href="https://youtu.be/tynzX-wg8QI?si=jAtil9a5mukGQtuR"
+        target="_blank"
+        className="mt-12 inline-flex items-center gap-3 text-white border border-white/20 px-8 py-4 rounded hover:bg-white hover:text-black transition-all group"
+      >
+        <Play size={18} className="fill-current" /> Смотреть разбор кейсов
+      </a>
     </div>
   </section>
 );
@@ -675,10 +683,9 @@ const ROLES: RoleFeature[] = [
     icon: Rocket,
     title: "Фаундер",
     points: [
-      "Команда маркетологов и блогеров, мотивированных на результат",
-      "Масштабирование без венчура и рекламных бюджетов",
-      "Прямой доступ к аудитории через лидеров мнений",
-      "Партнеры, прошедшие валидацию комьюнити"
+      "Выход на маркетологов для работы за %",
+      "Выход на лидеров мнений для работы за %",
+      "Экосистема партнёров для роста в долгую"
     ]
   },
   {
@@ -686,8 +693,8 @@ const ROLES: RoleFeature[] = [
     title: "Маркетолог",
     points: [
       "Проекты под твои скилы без самостоятельного поиска",
-      "Работа на 100% мощности, а не на 40% за фикс",
-      "Доля от прибыли = реальный заработок на результате",
+      "Работа на 100% мощности с равноправным партнерством",
+      "Доля в прибыли и компании вместо оклада",
       "Выбираешь проекты, в которые веришь"
     ]
   },
@@ -695,7 +702,7 @@ const ROLES: RoleFeature[] = [
     icon: Target,
     title: "Лидер мнений",
     points: [
-      "Личный продюсер подбирает продукты под твою аудиторию",
+      "Личный продюсер растит твою аудиторию и фанатов",
       "База релевантных проектов для долгосрочных партнерств",
       "Доля от прибыли вместо копеек за разовую интеграцию",
       "Приоритет в партнерских связках после прохождения челленджа"
@@ -725,28 +732,28 @@ const COMPARISONS: ComparisonItem[] = [
 const STEPS: ProcessStep[] = [
   {
     number: "01",
-    title: "Челлендж",
-    description: "Проходишь 7-дневный челлендж для подтверждения компетенций."
+    title: "Мэтчинг",
+    description: "Пройди челлендж, чтобы поймать мэтч с партнёром: маркетолог + фаундер"
   },
   {
     number: "02",
-    title: "Заявка",
-    description: "Оставляешь заявку на свой проект, скиллы или аудиторию."
+    title: "Лидер мнений",
+    description: "Пройди челлендж по подключению лидера мнений"
   },
   {
     number: "03",
-    title: "База",
-    description: "Попадаешь в закрытую базу «горячих» участников."
+    title: "Мастермайнды",
+    description: "Приходи на еженедельные мастермайнды; вопросы — в чат"
   },
   {
     number: "04",
-    title: "Связка",
-    description: "Получаешь релевантных партнеров и начинаешь работу."
+    title: "Первый запуск",
+    description: "Сделай первый запуск, чтобы получить 100–500к за 100 часов"
   },
   {
     number: "05",
-    title: "Прибыль",
-    description: "Работаешь в спринтах и получаешь долю от реальной прибыли."
+    title: "Скейл",
+    description: "Масштабируй партнерства и прибыль"
   }
 ];
 
@@ -768,9 +775,9 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-kult-black text-kult-text font-sans selection:bg-white selection:text-black overflow-x-hidden relative">
-      
+
       <div className="bg-noise"></div>
-      
+
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       {/* Navigation */}
@@ -779,23 +786,23 @@ const App: React.FC = () => {
           <div className="text-2xl font-serif font-bold tracking-tighter text-white z-50">
             КУЛЬТ
           </div>
-          
+
           <div className="hidden md:flex space-x-8 text-xs font-bold tracking-widest uppercase">
             <button onClick={() => scrollToSection('concept')} className="hover:text-white transition-colors">КОНЦЕПЦИЯ</button>
             <button onClick={() => scrollToSection('roles')} className="hover:text-white transition-colors">РОЛИ</button>
-            <button onClick={() => scrollToSection('projects')} className="hover:text-white transition-colors">ПРОЕКТЫ</button>
+            <button onClick={() => scrollToSection('projects')} className="hover:text-white transition-colors">ПРОЕКТ</button>
             <button onClick={() => scrollToSection('process')} className="hover:text-white transition-colors">ПРОЦЕСС</button>
             <button onClick={() => scrollToSection('manifesto')} className="hover:text-white transition-colors">МАНИФЕСТ</button>
           </div>
 
-          <button 
+          <button
             className="hidden md:block px-6 py-2 border border-white/20 text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
             onClick={openModal}
           >
             Войти в ассамблею
           </button>
 
-          <button 
+          <button
             className="md:hidden text-white z-50"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -806,9 +813,9 @@ const App: React.FC = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden fixed inset-0 bg-kult-black z-40 pt-24 px-6 flex flex-col space-y-6">
-             <button onClick={() => scrollToSection('concept')} className="text-left text-2xl font-serif text-white">КОНЦЕПЦИЯ</button>
+            <button onClick={() => scrollToSection('concept')} className="text-left text-2xl font-serif text-white">КОНЦЕПЦИЯ</button>
             <button onClick={() => scrollToSection('roles')} className="text-left text-2xl font-serif text-white">РОЛИ</button>
-             <button onClick={() => scrollToSection('projects')} className="text-left text-2xl font-serif text-white">ПРОЕКТЫ</button>
+            <button onClick={() => scrollToSection('projects')} className="text-left text-2xl font-serif text-white">ПРОЕКТ</button>
             <button onClick={() => scrollToSection('process')} className="text-left text-2xl font-serif text-white">ПРОЦЕСС</button>
             <button onClick={() => scrollToSection('manifesto')} className="text-left text-2xl font-serif text-white">МАНИФЕСТ</button>
           </div>
@@ -834,7 +841,7 @@ const App: React.FC = () => {
                 </span>
               </div>
             </FadeInSection>
-            
+
             <FadeInSection delay={200}>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[0.9] md:leading-[1.1] mb-8 tracking-tight">
                 МАСШТАБ <br />
@@ -844,25 +851,25 @@ const App: React.FC = () => {
 
             <FadeInSection delay={400}>
               <div className="max-w-xl mx-auto lg:mx-0 mb-12 border-l border-white/20 pl-6 text-left">
-                 <p className="text-xl md:text-2xl text-white font-serif mb-2">КУЛЬТ — место высокой продуктивности.</p>
-                 <p className="text-lg text-kult-muted font-light leading-relaxed">
-                   Растёшь и масштабируешься быстрее за счёт методологий, поддержки и наших механик.
-                 </p>
+                <p className="text-xl md:text-2xl text-white font-serif mb-2">КУЛЬТ — место высокой продуктивности.</p>
+                <p className="text-lg text-kult-muted font-light leading-relaxed">
+                  без бюджета на продукт, маркетинг и трафик на старте
+                </p>
               </div>
             </FadeInSection>
 
             <FadeInSection delay={600}>
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <button
-                  onClick={() => scrollToSection('split-comparison')}
+                  onClick={() => scrollToSection('trust')}
                   className="w-full sm:w-auto px-8 py-5 bg-[#00ff00] text-black font-bold text-xs tracking-[0.2em] hover:bg-[#00cc00] hover:shadow-[0_8px_24px_rgba(0,255,0,0.4)] hover:scale-105 transition-all uppercase flex items-center justify-center gap-3 group border-none"
-                  style={{ height: '64px' }} // +8px visual height
+                  style={{ height: '64px' }}
                 >
-                  С KULT <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  НАШИ ТОП КЕЙСЫ <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
-                   onClick={() => scrollToSection('split-comparison')}
-                   className="w-full sm:w-auto px-8 py-5 border border-white/20 text-white font-bold text-xs tracking-[0.2em] hover:bg-white/5 hover:translate-y-[-2px] transition-all uppercase h-14"
+                  onClick={() => scrollToSection('split-comparison')}
+                  className="w-full sm:w-auto px-8 py-5 border border-white/20 text-white font-bold text-xs tracking-[0.2em] hover:bg-white/5 hover:translate-y-[-2px] transition-all uppercase h-14"
                 >
                   Традиционный путь
                 </button>
@@ -875,28 +882,28 @@ const App: React.FC = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-transparent blur opacity-30"></div>
               <ChatSimulation />
               <div className="mt-6 text-center">
-                 <p className="text-xs text-kult-muted font-mono uppercase tracking-widest">Live Partnership Engine</p>
+                <p className="text-xs text-kult-muted font-mono uppercase tracking-widest">Live Partnership Engine</p>
               </div>
             </div>
           </FadeInSection>
         </div>
       </header>
 
-      <Marquee text="PARTNERSHIPS • PROFIT SHARE • SCALE •" />
+      <Marquee text="КУЛЬТУРА МАРКЕТИНГА • ПАРТНЁРСТВА ВМЕСТО ЗАРПЛАТ • ДОЛЯ ОТ ПРИБЫЛИ ВМЕСТО БЮДЖЕТОВ •" />
 
       {/* The Problem (Dark Reality) */}
       <section id="concept" className="py-32 px-6 bg-kult-black relative">
         <div className="max-w-4xl mx-auto">
           <FadeInSection>
             <h3 className="text-3xl md:text-5xl font-serif mb-12 text-white leading-tight">
-              Ты сливаешь свой стартап, <br/>
+              Ты сливаешь свой стартап, <br />
               <span className="text-kult-muted italic font-serif">даже не осознавая этого.</span>
             </h3>
-            
+
             <div className="grid md:grid-cols-2 gap-12 text-kult-muted text-lg font-light leading-relaxed">
               <p>
-                Представь: команда собрана, деньги найдены, реклама запущена. Проходит месяц. 
-                Бюджет испаряется. Маркетолог работает вполсилы за фикс. 
+                Представь: команда собрана, деньги найдены, реклама запущена. Проходит месяц.
+                Бюджет испаряется. Маркетолог работает вполсилы за фикс.
                 Блогеры делают интеграцию и забывают о тебе.
               </p>
               <div className="relative">
@@ -929,10 +936,10 @@ const App: React.FC = () => {
           </div>
 
           <div className="mt-24 text-center">
-             <p className="text-2xl md:text-5xl font-serif text-white leading-tight">
-               Бюджет не требуется. <br />
-               <span className="text-kult-muted decoration-1 underline decoration-white/30 underline-offset-8">Нужны только партнерства.</span>
-             </p>
+            <p className="text-2xl md:text-5xl font-serif text-white leading-tight">
+              Бюджет не требуется. <br />
+              <span className="text-kult-muted decoration-1 underline decoration-white/30 underline-offset-8">Нужны только партнерства.</span>
+            </p>
           </div>
         </div>
       </section>
@@ -944,8 +951,8 @@ const App: React.FC = () => {
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] border border-white/5 rounded-full opacity-50"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <SectionHeader 
-            title="ТВОЯ РОЛЬ" 
+          <SectionHeader
+            title="ТВОЯ РОЛЬ"
             subtitle="Система вин-вин, где каждый участник мотивирован конечным результатом."
           />
 
@@ -956,12 +963,12 @@ const App: React.FC = () => {
                   <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <ArrowRight className="text-white -rotate-45" />
                   </div>
-                  
+
                   <role.icon className="w-12 h-12 mb-8 text-white stroke-1" />
                   <h3 className="text-3xl font-serif text-white mb-8 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
                     {role.title}
                   </h3>
-                  
+
                   <ul className="space-y-6">
                     {role.points.map((point, pIdx) => (
                       <li key={pIdx} className="flex items-start text-kult-muted group-hover:text-white transition-colors duration-300">
@@ -985,7 +992,7 @@ const App: React.FC = () => {
 
       <TurnkeySection />
 
-      <Marquee text="DAO GOVERNANCE • NO SALARIES • JUST RESULTS •" reverse={true} />
+      <Marquee text="КУЛЬТУРА МАРКЕТИНГА • ПАРТНЁРСТВА ВМЕСТО ЗАРПЛАТ • ДОЛЯ ОТ ПРИБЫЛИ ВМЕСТО БЮДЖЕТОВ •" reverse={true} />
 
       {/* Projects Catalog */}
       <div id="projects">
@@ -999,8 +1006,8 @@ const App: React.FC = () => {
       {/* The Process */}
       <section id="process" className="py-32 px-6 bg-kult-black relative">
         <div className="max-w-5xl mx-auto">
-          <SectionHeader 
-            title="МЕХАНИКА" 
+          <SectionHeader
+            title="МЕХАНИКА"
             subtitle="7-дневные спринты вместо месяцев переговоров. Результат вместо бюрократии."
             centered={true}
           />
@@ -1008,19 +1015,19 @@ const App: React.FC = () => {
           <div className="relative mt-20">
             {/* Vertical Line */}
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"></div>
-            
+
             <div className="space-y-24">
               {STEPS.map((step, idx) => (
                 <FadeInSection key={idx} delay={idx * 100}>
                   <div className={`flex flex-col md:flex-row items-center ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''} gap-12 relative group`}>
-                    
+
                     {/* Center Dot */}
                     <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-black border border-white rounded-full z-10 items-center justify-center group-hover:scale-150 transition-transform duration-500">
                       <div className="w-1 h-1 bg-white rounded-full"></div>
                     </div>
-                    
+
                     <div className="w-full md:w-1/2 px-4">
-                       <div className={`text-left ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
+                      <div className={`text-left ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
                         <div className={`flex items-end gap-4 mb-4 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                           <span className="text-8xl font-serif font-bold text-white/5 leading-none">
                             {step.number}
@@ -1028,7 +1035,7 @@ const App: React.FC = () => {
                           <h4 className="text-2xl font-bold text-white pb-3">{step.title}</h4>
                         </div>
                         <p className="text-kult-muted font-light leading-relaxed max-w-sm ml-auto mr-auto md:mx-0">{step.description}</p>
-                       </div>
+                      </div>
                     </div>
 
                     {/* Empty side for layout balance */}
@@ -1045,36 +1052,36 @@ const App: React.FC = () => {
       <section id="manifesto" className="py-32 px-6 bg-white text-kult-black relative overflow-hidden">
         {/* Grain overlay for white section needs to be dark */}
         <div className="absolute inset-0 bg-black opacity-[0.03] pointer-events-none mix-blend-multiply"></div>
-        
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <FadeInSection>
             <h2 className="text-5xl md:text-7xl font-serif font-bold mb-10 leading-none">
-              ВРЕМЯ ПРИЗНАТЬ <br/> ПРАВДУ
+              ВРЕМЯ ПРИЗНАТЬ <br /> ПРАВДУ
             </h2>
             <p className="text-lg md:text-xl text-kult-gray/80 mb-16 font-light max-w-2xl mx-auto leading-relaxed">
               Нас учили, что для бизнеса необходим капитал. Это миф прошлого поколения.
-              Сатоши Накамото создал Bitcoin без ICO и рекламы. 
+              Сатоши Накамото с партнерами создал Bitcoin на $2 трлн без ICO и рекламы.
               Команда из 3 новичков сделала 200 млн без зарплат.
             </p>
-            
+
             <div className="bg-kult-black text-white p-10 md:p-16 w-full shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
-              
+
               <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4">ВСТУПИТЬ В КУЛЬТ</h3>
               <p className="text-kult-muted mb-10 text-sm tracking-wide max-w-md mx-auto">
                 Пройди отбор и получи доступ к закрытой базе проектов и продюсеров.
               </p>
-              
-              <button 
+
+              <button
                 onClick={openModal}
                 className="w-full md:w-auto px-12 py-5 bg-white text-black font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-colors inline-flex items-center justify-center gap-3"
               >
                 Подать заявку <ArrowRight className="w-4 h-4" />
               </button>
-              
+
               <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6 text-xs text-white/30">
-                <span className="flex items-center gap-2"><Lock size={12}/> Закрытое комьюнити</span>
-                <span className="flex items-center gap-2"><Zap size={12}/> 7 дней на валидацию</span>
+                <span className="flex items-center gap-2"><Lock size={12} /> Закрытое комьюнити</span>
+                <span className="flex items-center gap-2"><Zap size={12} /> Выход на партнёров за 7 дней бесплатно</span>
               </div>
             </div>
           </FadeInSection>
@@ -1090,7 +1097,7 @@ const App: React.FC = () => {
               Первая в России деловая ассамблея, работающая по модели Profit Sharing.
             </p>
           </div>
-          
+
           <div className="flex flex-col md:flex-row gap-12">
             <div>
               <h5 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Навигация</h5>
@@ -1101,7 +1108,7 @@ const App: React.FC = () => {
                 <button onClick={() => scrollToSection('process')} className="text-left hover:text-white transition-colors">Процесс</button>
               </div>
             </div>
-            
+
             <div>
               <h5 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Документы</h5>
               <div className="flex flex-col gap-4 text-sm text-kult-muted">
@@ -1112,15 +1119,25 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Правило атрибуции */}
+        <div className="max-w-7xl mx-auto mt-12 p-6 bg-white/5 border border-white/10 rounded-lg">
+          <h5 className="text-white font-bold uppercase tracking-widest text-xs mb-4">Правило атрибуции привода</h5>
+          <p className="text-sm text-kult-muted leading-relaxed">
+            Привод засчитывается тому, кто первым показал диалог с клиентом и далее была конверсия по этапам.
+            Если до захода в бот клиент уже общался с рекомендателем — засчитывается рекомендателю.
+          </p>
+        </div>
+
         <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-kult-muted/50">
           <p>© 2024 KULT Assembly. All rights reserved.</p>
           <p>Designed for Leaders.</p>
         </div>
       </footer>
-      
+
       {/* Sticky Bottom CTA for Mobile */}
       <div className="md:hidden fixed bottom-6 left-6 right-6 z-40">
-        <button 
+        <button
           onClick={openModal}
           className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.2)]"
         >
