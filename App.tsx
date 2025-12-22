@@ -461,6 +461,51 @@ const SplitScreenComparison: React.FC = () => {
 
 // --- New Components for Catalog & Trust ---
 
+const BlueOceanSection: React.FC = () => (
+  <section className="py-24 px-6 bg-gradient-to-b from-kult-black to-kult-dark relative z-30 border-t border-white/5">
+    <div className="max-w-5xl mx-auto">
+      <SectionHeader
+        title="Партнёрская модель роста: маркетинг без бюджета — только за результат."
+        subtitle="Мы не предлагаем вам «ещё один сервис». Мы даём систему, где фаундер, маркетолог и лидер мнений объединяются ради захвата рынка с оплатой за результат."
+        centered
+      />
+
+      <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="space-y-8">
+          <div className="p-6 bg-white/5 border-l-4 border-green-500 rounded-r-xl">
+            <h4 className="text-xl font-bold text-white mb-3">Логика (принцип "So That")</h4>
+            <p className="text-kult-muted leading-relaxed">
+              Маркетолог заходит в проект как со-владелец результата... <strong>так что</strong> он готов работать за долю в прибыли, потому что вы даёте ему упакованный фундамент, а не кота в мешке.
+            </p>
+          </div>
+
+          <div className="p-6 bg-white/5 border-l-4 border-white/20 rounded-r-xl">
+            <h4 className="text-xl font-bold text-white mb-3">Результат</h4>
+            <p className="text-kult-muted leading-relaxed">
+              Вы вкладываете X — получаете Y. Юнит-экономика становится предсказуемой, а рост доходов опережает рост расходов.
+            </p>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="absolute -inset-4 bg-green-500/20 blur-3xl rounded-full"></div>
+          <div className="relative bg-kult-gray border border-white/10 p-8 rounded-2xl shadow-2xl">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black font-bold text-xl">1</div>
+              <div className="h-px flex-1 bg-white/20"></div>
+              <div className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center text-white/20 font-bold text-xl">2</div>
+              <div className="h-px flex-1 bg-white/20"></div>
+              <div className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center text-white/20 font-bold text-xl">3</div>
+            </div>
+            <h5 className="text-white font-bold mb-2">Захват рынка</h5>
+            <p className="text-sm text-kult-muted">Объединение ресурсов фаундера, экспертизы маркетолога и охватов лидера мнений.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const TurnkeySection: React.FC = () => (
   <section className="py-24 px-6 bg-kult-black relative z-30 border-t border-white/5">
     <div className="max-w-4xl mx-auto">
@@ -589,6 +634,104 @@ const ProjectsCatalog: React.FC = () => {
     </section>
   );
 };
+
+const ValueStackSection: React.FC = () => (
+  <section className="py-24 px-6 bg-kult-dark border-t border-white/5 relative overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,0,0.05),transparent_70%)] pointer-events-none"></div>
+    <div className="max-w-5xl mx-auto relative z-10">
+      <SectionHeader
+        title="Заберите инструменты, на которых были построены империи на сотни миллионов."
+        centered
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="p-6 bg-white/5 border border-white/10 rounded-xl flex flex-col justify-between hover:bg-white/10 transition-colors">
+          <div>
+            <div className="text-green-500 font-bold mb-2">БАЗОВОЕ</div>
+            <h4 className="text-lg font-bold text-white mb-4">7-дневный челлендж по упаковке проекта</h4>
+          </div>
+          <div className="text-white font-bold">БЕСПЛАТНО</div>
+        </div>
+
+        <div className="p-6 bg-white/5 border border-white/10 rounded-xl group hover:border-green-500/30 transition-all">
+          <div className="text-kult-muted text-xs uppercase mb-2">Бонус №1</div>
+          <h4 className="text-lg font-bold text-white mb-4">PDF «Формула Илона Маска»</h4>
+          <p className="text-xs text-kult-muted mb-4">Как Маск создал PayPal с партнёрами и реинвестировал $180 млн. Применим в B2B.</p>
+          <div className="text-green-500 text-xs font-bold mt-auto flex items-center gap-2">ВНУТРИ БОТА <Send size={12} /></div>
+        </div>
+
+        <div className="p-6 bg-white/5 border border-white/10 rounded-xl group hover:border-green-500/30 transition-all">
+          <div className="text-kult-muted text-xs uppercase mb-2">Бонус №2</div>
+          <h4 className="text-lg font-bold text-white mb-4">Кейс «700 млн на командах»</h4>
+          <p className="text-xs text-kult-muted mb-4">Реальный опыт построения автономных отделов маркетинга, работающих за %.</p>
+          <div className="text-green-500 text-xs font-bold mt-auto flex items-center gap-2">ВНУТРИ БОТА <Send size={12} /></div>
+        </div>
+
+        <div className="p-6 bg-white/5 border border-white/10 rounded-xl group hover:border-green-500/30 transition-all">
+          <div className="text-kult-muted text-xs uppercase mb-2">Бонус №3</div>
+          <h4 className="text-lg font-bold text-white mb-4">Разбор воронки Брансона</h4>
+          <p className="text-xs text-kult-muted mb-4">Структура на $265M+, которая захватывает рынки и превращает внимание в прибыль.</p>
+          <div className="text-green-500 text-xs font-bold mt-auto flex items-center gap-2">ВНУТРИ БОТА <Send size={12} /></div>
+        </div>
+      </div>
+
+      <div className="p-8 md:p-12 bg-[#00ff00] text-black rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <div className="text-sm font-bold opacity-60 uppercase mb-2">ИТОГО</div>
+          <div className="text-3xl md:text-5xl font-serif font-black">ЦЕННОСТЬ ₽1,2 МЛН</div>
+        </div>
+        <div className="text-center md:text-right">
+          <div className="text-sm font-bold opacity-60 uppercase mb-2">ВАША ЦЕНА</div>
+          <div className="text-3xl md:text-5xl font-serif font-black underline decoration-4">БЕСПЛАТНО</div>
+          <div className="text-xs font-bold mt-2 opacity-60">ТОЛЬКО ВРЕМЯ НА ПРОХОЖДЕНИЕ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const GuaranteeSection: React.FC = () => (
+  <section className="py-24 px-6 bg-kult-black relative overflow-hidden text-center">
+    <div className="max-w-4xl mx-auto">
+      <div className="inline-block px-4 py-2 border border-green-500/30 bg-green-500/5 rounded-full mb-8">
+        <span className="text-green-500 text-xs font-bold uppercase tracking-widest">Гарантия (Risk Reversal)</span>
+      </div>
+      <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-8">
+        Ваш единственный риск — потратить 7 часов (по 1 часу в день).
+      </h2>
+      <div className="grid md:grid-cols-2 gap-12 text-left mt-16">
+        <div className="space-y-6">
+          <p className="text-kult-muted text-lg leading-relaxed">
+            Даже если вы не найдёте партнёра за 7 дней, у вас останется:
+          </p>
+          <ul className="space-y-4">
+            <li className="flex items-center gap-3 text-white">
+              <CheckCircle2 className="text-green-500 flex-shrink-0" />
+              <span>Упакованный оффер мирового уровня</span>
+            </li>
+            <li className="flex items-center gap-3 text-white">
+              <CheckCircle2 className="text-green-500 flex-shrink-0" />
+              <span>Презентация и скринкаст</span>
+            </li>
+            <li className="flex items-center gap-3 text-white">
+              <CheckCircle2 className="text-green-500 flex-shrink-0" />
+              <span>Записанный подкаст для прогрева аудитории</span>
+            </li>
+          </ul>
+        </div>
+        <div className="p-8 bg-white/5 border border-white/10 rounded-2xl">
+          <p className="text-kult-muted leading-relaxed mb-6 italic">
+            "Консалтинговые агентства берут за такую упаковку ₽500,000–₽2 млн. Вы получаете это бесплатно — просто пройдите 7 дней."
+          </p>
+          <div className="h-px bg-white/10 w-full mb-6"></div>
+          <p className="text-white font-bold">
+            Вы ничего не теряете, но можете приобрести актив на сотни миллионов.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const TrustSection: React.FC = () => (
   <section id="trust" className="py-24 px-6 bg-kult-dark relative overflow-hidden">
@@ -731,29 +874,24 @@ const COMPARISONS: ComparisonItem[] = [
 
 const STEPS: ProcessStep[] = [
   {
-    number: "01",
-    title: "Мэтчинг",
-    description: "Пройди челлендж, чтобы поймать мэтч с партнёром: маркетолог + фаундер"
+    number: "01-02",
+    title: "Смысловая упаковка",
+    description: "Выделяем суть продукта в одну фразу, понятную рынку 2026 года."
   },
   {
-    number: "02",
-    title: "Лидер мнений",
-    description: "Пройди челлендж по подключению лидера мнений"
+    number: "03-04",
+    title: "Доказательство ценности",
+    description: "Создаём презентацию и скринкаст, которые снимают все возражения партнёра за 3 минуты."
   },
   {
-    number: "03",
-    title: "Мастермайнды",
-    description: "Приходи на еженедельные мастермайнды; вопросы — в чат"
+    number: "05-06",
+    title: "Создание доверия",
+    description: "Записываем подкаст — это сырьё для охватов и личного бренда, которое заменяет месяцы прогрева."
   },
   {
-    number: "04",
-    title: "Первый запуск",
-    description: "Сделай первый запуск, чтобы получить 100–500к за 100 часов"
-  },
-  {
-    number: "05",
-    title: "Скейл",
-    description: "Масштабируй партнерства и прибыль"
+    number: "07",
+    title: "Фиксация партнёра",
+    description: "Выход на рынок с оффером Equity-based, создание рабочего чата и старт работы."
   }
 ];
 
@@ -834,26 +972,24 @@ const App: React.FC = () => {
             <div className="absolute -inset-10 bg-black/40 blur-3xl -z-10 pointer-events-none rounded-full"></div>
 
             <FadeInSection>
-              <div className="inline-flex items-center gap-2 py-1 px-3 border border-white/10 bg-white/5 rounded-full mb-8 backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span className="text-xs font-semibold tracking-widest uppercase text-kult-muted">
-                  Набор открыт
+              <div className="inline-flex items-center gap-2 py-2 px-4 border border-white/10 bg-white/5 rounded backdrop-blur-sm mb-10 max-w-2xl text-left">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0 mt-1"></span>
+                <span className="text-[10px] md:text-xs font-semibold tracking-wide uppercase text-kult-muted leading-relaxed">
+                  Реклама в 2026 — это лотерея за ваш счет. Пока агентства сжигают ваши бюджеты без гарантий, другие фаундеры строят партнёрские системы и растут без риска.
                 </span>
               </div>
             </FadeInSection>
 
             <FadeInSection delay={200}>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[0.9] md:leading-[1.1] mb-8 tracking-tight">
-                МАСШТАБ <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50 italic pr-2">БЕЗ БЮДЖЕТА</span>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-10 tracking-tight">
+                Подключите маркетинг-партнера за 7 дней, который вложит своё время в ваш проект за <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff00] to-white italic">% от прибыли</span>, а не за фикс.
               </h1>
             </FadeInSection>
 
             <FadeInSection delay={400}>
-              <div className="max-w-xl mx-auto lg:mx-0 mb-12 border-l border-white/20 pl-6 text-left">
-                <p className="text-xl md:text-2xl text-white font-serif mb-2">КУЛЬТ — место высокой продуктивности.</p>
-                <p className="text-lg text-kult-muted font-light leading-relaxed">
-                  без бюджета на продукт, маркетинг и трафик на старте
+              <div className="max-w-2xl mx-auto lg:mx-0 mb-12 border-l border-white/20 pl-6 text-left">
+                <p className="text-lg md:text-xl text-kult-muted font-light leading-relaxed">
+                  Яндекс и Telegram перегреты. Пока вы платите агентствам 100% предоплату за "может быть сработает", мы внедрим систему партнёрского роста, которая превратит ваш продукт в магнит для топовых маркетологов и лидеров мнений.
                 </p>
               </div>
             </FadeInSection>
@@ -861,17 +997,11 @@ const App: React.FC = () => {
             <FadeInSection delay={600}>
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <button
-                  onClick={() => scrollToSection('trust')}
-                  className="w-full sm:w-auto px-8 py-5 bg-[#00ff00] text-black font-bold text-xs tracking-[0.2em] hover:bg-[#00cc00] hover:shadow-[0_8px_24px_rgba(0,255,0,0.4)] hover:scale-105 transition-all uppercase flex items-center justify-center gap-3 group border-none"
-                  style={{ height: '64px' }}
+                  onClick={openModal}
+                  className="w-full sm:w-auto px-8 py-5 bg-[#00ff00] text-black font-extrabold text-sm tracking-wider hover:bg-[#00cc00] hover:shadow-[0_8px_32px_rgba(0,255,0,0.4)] hover:scale-105 transition-all uppercase flex items-center justify-center gap-3 group border-none"
+                  style={{ height: '72px' }}
                 >
-                  НАШИ ТОП КЕЙСЫ <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button
-                  onClick={() => scrollToSection('split-comparison')}
-                  className="w-full sm:w-auto px-8 py-5 border border-white/20 text-white font-bold text-xs tracking-[0.2em] hover:bg-white/5 hover:translate-y-[-2px] transition-all uppercase h-14"
-                >
-                  Традиционный путь
+                  🚀 Забрать формулу Илона Маска и 3 бонуса в боте →
                 </button>
               </div>
             </FadeInSection>
@@ -893,56 +1023,49 @@ const App: React.FC = () => {
 
       {/* The Problem (Dark Reality) */}
       <section id="concept" className="py-32 px-6 bg-kult-black relative">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <FadeInSection>
-            <h3 className="text-3xl md:text-5xl font-serif mb-12 text-white leading-tight">
-              Ты сливаешь свой стартап, <br />
-              <span className="text-kult-muted italic font-serif">даже не осознавая этого.</span>
-            </h3>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-16 text-white leading-tight">
+              Вот почему ваш бизнес не масштабируется <br />
+              <span className="text-kult-muted italic font-serif text-2xl md:text-4xl">(пока бюджеты сгорают дотла):</span>
+            </h2>
 
-            <div className="grid md:grid-cols-2 gap-12 text-kult-muted text-lg font-light leading-relaxed">
-              <p>
-                Представь: команда собрана, деньги найдены, реклама запущена. Проходит месяц.
-                Бюджет испаряется. Маркетолог работает вполсилы за фикс.
-                Блогеры делают интеграцию и забывают о тебе.
-              </p>
-              <div className="relative">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-white"></div>
-                <p className="pl-6 text-white">
-                  Пока ты сжигаешь кэш на рекламу, твои конкуренты масштабируются без бюджета.
-                  Капитал — это архаизм. Современный мир движется за счет партнерств.
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-8 bg-white/5 border border-white/10 rounded-2xl group hover:border-red-500/50 transition-all duration-500">
+                <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-red-500/20 transition-colors">
+                  <XCircle size={24} className="text-red-500" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">Проблема 1: Атака "хитрых агентств"</h3>
+                <p className="text-kult-muted text-sm leading-relaxed">
+                  Вас каждый день атакуют обещаниями "горы клиентов" при 100% предоплате. Это лотерея за <span className="text-white font-bold">₽500,000–₽1,5 млн</span>, где весь риск — на вас, а результат — в тумане.
+                </p>
+              </div>
+
+              <div className="p-8 bg-white/5 border border-white/10 rounded-2xl group hover:border-red-500/50 transition-all duration-500">
+                <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-red-500/20 transition-colors">
+                  <BarChart3 size={24} className="text-red-500" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">Проблема 2: Слив при масштабировании</h3>
+                <p className="text-kult-muted text-sm leading-relaxed">
+                  Стоимость клика выросла в 3-4 раза за год. При увеличении бюджета CAC растёт быстрее выручки. Реклама стала только для теста, а не для роста.
+                </p>
+              </div>
+
+              <div className="p-8 bg-white/5 border border-white/10 rounded-2xl group hover:border-red-500/50 transition-all duration-500">
+                <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-red-500/20 transition-colors">
+                  <Lock size={24} className="text-red-500" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">Проблема 3: Внутренний хаос</h3>
+                <p className="text-kult-muted text-sm leading-relaxed">
+                  Лиды есть — деньги нет. CRM забита мусором, менеджеры путаются в воронке. Вы просто льёте деньги в дырявое ведро.
                 </p>
               </div>
             </div>
           </FadeInSection>
-
-          {/* Comparison Cards */}
-          <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {COMPARISONS.map((item, idx) => (
-              <FadeInSection key={idx} delay={idx * 150}>
-                <div className="p-8 border border-white/10 hover:border-white transition-all duration-500 h-full flex flex-col justify-between bg-white/5 backdrop-blur-sm group hover:-translate-y-2">
-                  <div>
-                    <h4 className="text-2xl font-bold text-white mb-2">{item.company}</h4>
-                    <p className="text-xs text-kult-muted uppercase tracking-wider mb-6">
-                      {item.achievement}
-                    </p>
-                  </div>
-                  <div className="pt-6 border-t border-white/10 group-hover:border-white/50 transition-colors">
-                    <p className="text-white font-serif italic text-xl">{item.method}</p>
-                  </div>
-                </div>
-              </FadeInSection>
-            ))}
-          </div>
-
-          <div className="mt-24 text-center">
-            <p className="text-2xl md:text-5xl font-serif text-white leading-tight">
-              Бюджет не требуется. <br />
-              <span className="text-kult-muted decoration-1 underline decoration-white/30 underline-offset-8">Нужны только партнерства.</span>
-            </p>
-          </div>
         </div>
       </section>
+
+      <BlueOceanSection />
 
       {/* The Solution (Roles) */}
       <section id="roles" className="py-32 px-6 bg-kult-dark relative overflow-hidden">
@@ -1007,8 +1130,8 @@ const App: React.FC = () => {
       <section id="process" className="py-32 px-6 bg-kult-black relative">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
-            title="МЕХАНИКА"
-            subtitle="7-дневные спринты вместо месяцев переговоров. Результат вместо бюрократии."
+            title="7-дневный челлендж"
+            subtitle="7 дней, которые отделяют вас от найма партнёра за результат (а не за фикс)."
             centered={true}
           />
 
@@ -1048,7 +1171,11 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Manifesto / Final CTA */}
+      <ValueStackSection />
+
+      <GuaranteeSection />
+
+      {/* Final CTA Section */}
       <section id="manifesto" className="py-32 px-6 bg-white text-kult-black relative overflow-hidden">
         {/* Grain overlay for white section needs to be dark */}
         <div className="absolute inset-0 bg-black opacity-[0.03] pointer-events-none mix-blend-multiply"></div>
@@ -1056,32 +1183,30 @@ const App: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <FadeInSection>
             <h2 className="text-5xl md:text-7xl font-serif font-bold mb-10 leading-none">
-              ВРЕМЯ ПРИЗНАТЬ <br /> ПРАВДУ
+              Готовы перестать играть в лотерею и начать системно расти?
             </h2>
-            <p className="text-lg md:text-xl text-kult-gray/80 mb-16 font-light max-w-2xl mx-auto leading-relaxed">
-              Нас учили, что для бизнеса необходим капитал. Это миф прошлого поколения.
-              Сатоши Накамото с партнерами создал Bitcoin на $2 трлн без ICO и рекламы.
-              Команда из 3 новичков сделала 200 млн без зарплат.
-            </p>
 
-            <div className="bg-kult-black text-white p-10 md:p-16 w-full shadow-2xl relative overflow-hidden group">
+            <div className="bg-kult-black text-white p-10 md:p-16 w-full shadow-2xl relative overflow-hidden group rounded-3xl">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
 
-              <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4">ВСТУПИТЬ В КУЛЬТ</h3>
-              <p className="text-kult-muted mb-10 text-sm tracking-wide max-w-md mx-auto">
-                Пройди отбор и получи доступ к закрытой базе проектов и продюсеров.
-              </p>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold mb-10 uppercase tracking-tight">
+                ПОЛУЧИТЬ ВСЕ БОНУСЫ И ДОСТУП К ЧЕЛЛЕНДЖУ
+              </h3>
 
               <button
                 onClick={openModal}
-                className="w-full md:w-auto px-12 py-5 bg-white text-black font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-colors inline-flex items-center justify-center gap-3"
+                className="w-full md:w-auto px-12 py-6 bg-[#00ff00] text-black font-black uppercase tracking-[0.1em] hover:bg-[#00cc00] hover:scale-105 transition-all inline-flex items-center justify-center gap-4 text-xl"
               >
-                Подать заявку <ArrowRight className="w-4 h-4" />
+                🤖 Зайти в бота и получить все бонусы прямо сейчас →
               </button>
 
-              <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6 text-xs text-white/30">
-                <span className="flex items-center gap-2"><Lock size={12} /> Закрытое комьюнити</span>
-                <span className="flex items-center gap-2"><Zap size={12} /> Выход на партнёров за 7 дней бесплатно</span>
+              <div className="mt-8 flex flex-col items-center justify-center gap-2 text-xs text-white/40 font-bold uppercase tracking-widest">
+                <p>Бесплатно для фаундеров. Занимает 30 секунд.</p>
+                <div className="flex items-center gap-6 mt-4">
+                  <span className="flex items-center gap-1">Musk</span>
+                  <span className="flex items-center gap-1">Hormozi</span>
+                  <span className="flex items-center gap-1">Brunson</span>
+                </div>
               </div>
             </div>
           </FadeInSection>
