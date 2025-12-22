@@ -25,23 +25,23 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
     roleName: 'Фаундер',
     kultPath: {
       stages: [
-        { title: "Матчинг", description: "Выход на маркетологов и лидеров мнений для работы за %.", result: "Партнер найден", time: "24 часа" },
-        { title: "MVP", description: "Запуск первой версии продукта с готовой командой.", result: "Запуск", time: "1 неделя" },
-        { title: "Трекшн", description: "Первые продажи через базу партнеров.", result: "Выручка", time: "2 недели" },
-        { title: "Масштаб", description: "Масштаб за недели–месяцы, не годы.", result: "Profit", time: "1 месяц" }
+        { title: "Матчинг", description: "Выходите на маркетологов и ЛМ, готовых работать за % от прибыли. Без фикса и предоплат.", result: "Партнёр найден", time: "24 часа" },
+        { title: "MVP", description: "Запускаете первую версию с готовой командой. Они уже мотивированы результатом.", result: "Продукт на рынке", time: "7 дней" },
+        { title: "Трекшн", description: "Первые продажи через базу партнёров и их аудиторию. Без слива рекламных бюджетов.", result: "Первая выручка", time: "2 недели" },
+        { title: "Масштаб", description: "Масштабируете за недели, а не годы. Команда растёт вместе с бизнесом.", result: "Profit Share", time: "1 месяц" }
       ],
-      totalTime: "1.5 месяца",
-      summary: "возможность расти быстро вообще без привлечения денежных инвестиций"
+      totalTime: "6 недель",
+      summary: "Рост без инвестиций — только за результат"
     },
     tradPath: {
       stages: [
-        { title: "Поиск", description: "Поиск кофаундера и бесконечные встречи.", result: "Нет партнера", time: "2-3 мес" },
-        { title: "Найм", description: "Сбор штата, оформление, налоги.", result: "ФОТ -300к", time: "1 месяц" },
-        { title: "Разработка", description: "Долгострой, баги, смена подрядчиков.", result: "MVP", time: "4-6 мес" },
-        { title: "Маркетинг", description: "Попытки настроить рекламу самостоятельно.", result: "Слив бюджета", time: "∞" }
+        { title: "Поиск", description: "Бесконечные встречи с фрилансерами и агентствами. Никто не хочет работать за %.", result: "Нет партнёра", time: "2-3 мес" },
+        { title: "Найм", description: "Собираете штат: ФОТ, налоги, онбординг. Деньги тают до первой продажи.", result: "ФОТ −300к/мес", time: "1 месяц" },
+        { title: "Разработка", description: "Долгострой, баги, смена подрядчиков. MVP откладывается снова и снова.", result: "Долгострой", time: "4-6 мес" },
+        { title: "Маркетинг", description: "Сливаете бюджет на рекламу. Агентства берут предоплату, результата нет.", result: "Слив бюджета", time: "∞" }
       ],
       totalTime: "8+ месяцев",
-      summary: "Или закрытие стартапа через полгода."
+      summary: "Закрытие стартапа через полгода"
     }
   },
   {
@@ -49,24 +49,23 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
     roleName: 'Маркетолог',
     kultPath: {
       stages: [
-        { title: "Челлендж", description: "подключение к проект за 7 дней - быстрый вход - челлендж", result: "Старт", time: "7 дней" },
-        { title: "Тестовый пилот", description: "100-500к - 100 часов - тестовый пилот", result: "100-500к", time: "100 часов" },
-        { title: "Вход в долю бизнеса", description: "300-1,2 млн - 3х - вход в долю бизнеса", result: "300к-1,2 млн", time: "3х" },
-        { title: "Скейл", description: "900-3,6 - 3х - скейл", result: "900к-3,6 млн", time: "3х" },
-        { title: "Скейл-агентство", description: "1,8-7,2 за год с 1-го проекта, строит систему агентства с нами и может брать до 20 проектов в параллель", result: "1,8-7,2 млн/год", time: "∞" }
+        { title: "Челлендж", description: "Проходите 7-дневный челлендж — получаете доступ к базе проектов под ваши скилы.", result: "Доступ к базе", time: "7 дней" },
+        { title: "Пилот", description: "Заходите в первый проект за % от прибыли. 100 часов = 100-500к дохода.", result: "100-500к", time: "1 месяц" },
+        { title: "Партнёрство", description: "Получаете долю в бизнесе. Ваш доход растёт вместе с проектом.", result: "300к-1,2 млн", time: "3 месяца" },
+        { title: "Скейл", description: "Берёте несколько проектов параллельно. Строите своё агентство на Profit Share.", result: "1,8-7,2 млн/год", time: "12 месяцев" }
       ],
       totalTime: "От 7 дней до скейла",
-      summary: "От профита 100к до 2+ млн/мес на Profit Share"
+      summary: "От 100к до 2+ млн/мес на Profit Share"
     },
     tradPath: {
       stages: [
-        { title: "1 год", description: "Заклад выгорания, рост ~5%/мес. Клянчить бюджеты вместо быстрых тестов по трафику.", result: "~100к", time: "12 мес" },
-        { title: "2 год", description: "Потолок роста на найме. Низкая мотивация команды без доли в прибыли.", result: "~200к", time: "12 мес" },
-        { title: "3 год", description: "Стагнация без доли в бизнесе. Стагнация и выгорание без доли в компании.", result: "~300к", time: "12 мес" },
-        { title: "Финал", description: "Выгорание / увольнение / поиск нового места.", result: "Потеря", time: "?" }
+        { title: "Найм", description: "Работа за оклад. Клянчите бюджеты вместо тестов гипотез.", result: "~100к/мес", time: "1 год" },
+        { title: "Рост", description: "Потолок 5%/мес. Низкая мотивация без доли в прибыли.", result: "~200к/мес", time: "2 года" },
+        { title: "Стагнация", description: "Стагнация и выгорание. Компания не делится прибылью.", result: "~300к/мес", time: "3 года" },
+        { title: "Выгорание", description: "Увольнение или смена места. Всё по кругу.", result: "Потеря", time: "∞" }
       ],
-      totalTime: "3+ года",
-      summary: "Потолок ~300к и выгорание."
+      totalTime: "3+ года до потолка",
+      summary: "Потолок ~300к и выгорание"
     }
   },
   {
@@ -74,24 +73,23 @@ const ROLE_COMPARISON_DATA: RoleComparisonData[] = [
     roleName: 'Лидер Мнений',
     kultPath: {
       stages: [
-        { title: "Новичок", description: "запуск контент завода 160к охвата за мес", result: "160к охвата", time: "1 мес" },
-        { title: "Партнер", description: "охваты 15к/пост - 400К пилот: эфир + посты", result: "400к пилот", time: "2 мес" },
-        { title: "Амбасадор", description: "охваты и доход растет х3 в квартал через продюсирование маркетологом", result: "1,2 млн/мес", time: "квартал" },
-        { title: "Лидер мнений", description: "охваты 50к пост - качает 5 продуктов в мес", result: "3 млн/мес", time: "6 мес" },
-        { title: "Совладелец", description: "раскачивает новые проекты и получает капитализацию - игра в долгую на млн $", result: "млн $", time: "долгосрок" }
+        { title: "Контент-завод", description: "Запускаете системный контент с продюсером. 160к охвата за первый месяц.", result: "160к охвата", time: "1 месяц" },
+        { title: "Партнёр", description: "Получаете долгосрочные партнёрства вместо разовых интеграций. Эфиры + посты.", result: "400к пилот", time: "2 месяца" },
+        { title: "Амбассадор", description: "Ваши охваты и доход растут x3 каждый квартал через продюсирование.", result: "1,2 млн/мес", time: "квартал" },
+        { title: "Совладелец", description: "Входите в долю новых проектов. Играете вдолгую на миллионы $.", result: "Капитализация", time: "долгосрок" }
       ],
       totalTime: "От 1 мес до совладельца",
-      summary: "От первых 100к охвата до 5 млн руб и долей на млн $ как совладелец"
+      summary: "От 100к охвата до 5 млн руб и долей на млн $"
     },
     tradPath: {
       stages: [
-        { title: "Ожидание", description: "Пассивное ожидание заявок на рекламу.", result: "Тишина", time: "?" },
-        { title: "ТЗ", description: "Согласование жесткого ТЗ от заказчика.", result: "Рамки", time: "3 дня" },
-        { title: "Пост", description: "Публикация рекламы. Большинство рекламодателей не возвращаются повторно.", result: "Оплата", time: "1 день" },
-        { title: "Поиск", description: "Снова поиск рекламодателя.", result: "Нестабильность", time: "Постоянно" }
+        { title: "Ожидание", description: "Пассивное ожидание заявок. Рекламодатели приходят редко.", result: "Тишина", time: "?" },
+        { title: "Согласование", description: "Жёсткое ТЗ от заказчика. Креатив сковывают рамками.", result: "Рамки", time: "3 дня" },
+        { title: "Публикация", description: "Разовая интеграция за копейки. Рекламодатели не возвращаются.", result: "Разовая оплата", time: "1 день" },
+        { title: "Нестабильность", description: "Снова поиск. Нет системы, нет предсказуемого дохода.", result: "Бартер", time: "∞" }
       ],
       totalTime: "Разово",
-      summary: "Работа за еду (бартер)."
+      summary: "Работа за бартер и нестабильность"
     }
   }
 ];
@@ -808,18 +806,19 @@ const ROLES: RoleFeature[] = [
     icon: Rocket,
     title: "Фаундер",
     points: [
-      "Выход на маркетологов для работы за %",
-      "Выход на лидеров мнений для работы за %",
-      "Экосистема партнёров для роста в долгую"
+      "За 7 дней — упакованный оффер для привлечения партнёров",
+      "Маркетолог за % от прибыли, а не за фикс",
+      "ЛМ для охватов без рекламного бюджета",
+      "Экосистема партнёров для системного роста"
     ]
   },
   {
     icon: BarChart3,
     title: "Маркетолог",
     points: [
-      "Проекты под твои скилы без самостоятельного поиска",
-      "Работа на 100% мощности с равноправным партнерством",
-      "Доля в прибыли и компании вместо оклада",
+      "За 7 дней — доступ к базе проектов под твои скилы",
+      "Работа за Profit Share: твой доход = результат",
+      "Доля в бизнесе вместо потолка оклада",
       "Выбираешь проекты, в которые веришь"
     ]
   },
@@ -827,10 +826,10 @@ const ROLES: RoleFeature[] = [
     icon: Target,
     title: "Лидер мнений",
     points: [
-      "Личный продюсер растит твою аудиторию и фанатов",
-      "База релевантных проектов для долгосрочных партнерств",
-      "Доля от прибыли вместо копеек за разовую интеграцию",
-      "Приоритет в партнерских связках после прохождения челленджа"
+      "За 1 месяц — 160к охвата с продюсером",
+      "Долгосрочные партнёрства вместо разовых интеграций",
+      "Доля от прибыли вместо бартера",
+      "Путь к совладельцу проектов"
     ]
   }
 ];
@@ -949,8 +948,8 @@ const App: React.FC = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[120px] -z-10 pointer-events-none animate-pulse-slow"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] -z-10 pointer-events-none animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
 
-        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center z-10">
-          <div className="text-center lg:text-left relative">
+        <div className="max-w-4xl mx-auto w-full text-center z-10">
+          <div className="relative">
             {/* Task E1: Improved readability background */}
             <div className="absolute -inset-10 bg-black/40 blur-3xl -z-10 pointer-events-none rounded-full"></div>
 
@@ -965,18 +964,18 @@ const App: React.FC = () => {
             <FadeInSection delay={200}>
               {/* T1: Shortened headline to ~15 words */}
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-8 tracking-tight">
-                Маркетинг-партнёр за <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white italic">% от прибыли</span>,<br />a не за фикс
+                Маркетинг-партнёр за <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white italic">% от прибыли</span>,<br />а не за фикс
               </h1>
             </FadeInSection>
 
             <FadeInSection delay={300}>
-              <p className="text-lg md:text-xl text-kult-muted font-light leading-relaxed mb-10 max-w-xl">
+              <p className="text-lg md:text-xl text-kult-muted font-light leading-relaxed mb-10 max-w-xl mx-auto">
                 Подключите маркетолога за 7 дней. Без предоплат и рисков.
               </p>
             </FadeInSection>
 
             <FadeInSection delay={400}>
-              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
                 <button
                   onClick={openModal}
                   className="w-full sm:w-auto px-10 py-5 bg-accent text-black font-extrabold text-sm tracking-wider hover:bg-[#00cc00] hover:shadow-[0_8px_32px_rgba(0,255,0,0.4)] hover:scale-105 transition-all uppercase flex items-center justify-center gap-3 group border-none rounded-xl"
@@ -993,6 +992,7 @@ const App: React.FC = () => {
           </div>
 
         </div>
+
       </header>
 
       <Marquee text="КУЛЬТУРА МАРКЕТИНГА • ПАРТНЁРСТВА ВМЕСТО ЗАРПЛАТ • ДОЛЯ ОТ ПРИБЫЛИ ВМЕСТО БЮДЖЕТОВ •" />
