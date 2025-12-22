@@ -126,16 +126,24 @@ const FadeInSection: React.FC<{ children: React.ReactNode; delay?: number; class
   );
 };
 
+const BusinessBackground: React.FC = () => (
+  <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/20 rounded-full blur-[120px] animate-bg-shift opacity-30"></div>
+    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px] animate-bg-shift opacity-20" style={{ animationDelay: '-5s' }}></div>
+    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+  </div>
+);
+
 const SectionHeader: React.FC<{ title: string; subtitle?: string; centered?: boolean }> = ({ title, subtitle, centered = false }) => (
   <div className={`mb-16 md:mb-24 ${centered ? 'text-center flex flex-col items-center' : ''}`}>
-    <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
+    <h2 className="text-4xl md:text-6xl font-serif font-extrabold text-white mb-8 leading-none tracking-tighter">
       {title}
     </h2>
     {subtitle && (
-      <div className="w-24 h-1 bg-white mb-6"></div>
+      <div className="w-20 h-1.5 bg-accent mb-8 rounded-full"></div>
     )}
     {subtitle && (
-      <p className="text-xl text-kult-muted max-w-2xl font-light">
+      <p className="text-lg md:text-xl text-kult-muted max-w-3xl font-light leading-relaxed">
         {subtitle}
       </p>
     )}
@@ -233,26 +241,26 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative w-full max-w-lg bg-kult-dark border border-white/10 p-8 md:p-12 overflow-hidden">
-        <button onClick={onClose} className="absolute top-4 right-4 text-kult-muted hover:text-white">
-          <X size={24} />
+      <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={onClose}></div>
+      <div className="relative w-full max-w-lg bg-kult-dark border border-white/10 p-10 md:p-14 overflow-hidden rounded-3xl shadow-[0_0_50px_rgba(255,255,255,0.05)]">
+        <button onClick={onClose} className="absolute top-6 right-6 text-kult-muted hover:text-white transition-colors">
+          <X size={28} />
         </button>
 
         <div className="animate-float">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
-            <Zap size={32} className="text-black fill-current" />
+          <div className="w-20 h-20 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(0,255,0,0.3)] rotate-3">
+            <Zap size={40} className="text-black fill-current" />
           </div>
 
-          <h3 className="text-2xl font-serif text-white mb-4 text-center">Запусти свой рост</h3>
-          <p className="text-kult-muted text-sm mb-8 text-center">
-            Все операции, матчинг и управление процессами происходят в нашем Telegram боте.
+          <h3 className="text-3xl font-serif font-bold text-white mb-4 text-center tracking-tight">Начни свой Челлендж</h3>
+          <p className="text-kult-muted text-base mb-10 text-center leading-relaxed">
+            Все операции, матчинг и управление партнерствами происходят в защищенном Telegram-боте.
           </p>
 
-          <div className="mb-8">
-            <label className="flex items-start gap-3 cursor-pointer group p-3 border border-white/5 rounded hover:bg-white/5 transition-colors">
-              <div className={`w-5 h-5 border flex items-center justify-center transition-colors flex-shrink-0 mt-0.5 ${agreed ? 'bg-white border-white' : 'border-white/30 group-hover:border-white'}`}>
-                {agreed && <CheckCircle2 size={12} className="text-black" />}
+          <div className="mb-10">
+            <label className="flex items-start gap-4 cursor-pointer group p-4 border border-white/5 bg-white/[0.02] rounded-2xl hover:bg-white/[0.05] transition-all">
+              <div className={`w-6 h-6 border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 rounded-lg ${agreed ? 'bg-accent border-accent' : 'border-white/20 group-hover:border-white/40'}`}>
+                {agreed && <CheckCircle2 size={14} className="text-black stroke-[3px]" />}
               </div>
               <input
                 type="checkbox"
@@ -260,10 +268,10 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
                 checked={agreed}
                 onChange={e => setAgreed(e.target.checked)}
               />
-              <span className="text-xs text-kult-muted leading-tight">
-                Я принимаю условия <a href="/legal/offer.html" target="_blank" className="underline hover:text-white">Оферты</a>,
-                соглашаюсь с <a href="/legal/privacy.html" target="_blank" className="underline hover:text-white">Политикой конфиденциальности</a> и даю
-                <a href="/legal/consent.html" target="_blank" className="underline hover:text-white"> Согласие на обработку персональных данных</a>.
+              <span className="text-xs text-kult-muted leading-relaxed select-none">
+                Я принимаю условия <a href="/legal/offer.html" target="_blank" className="text-white underline hover:text-accent transition-colors">Оферты</a>,
+                соглашаюсь с <a href="/legal/privacy.html" target="_blank" className="text-white underline hover:text-accent transition-colors">Политикой</a> и даю
+                <a href="/legal/consent.html" target="_blank" className="text-white underline hover:text-accent transition-colors"> Согласие на обработку данных</a>.
               </span>
             </label>
           </div>
@@ -271,9 +279,9 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
           <button
             onClick={handleGoToBot}
             disabled={!agreed}
-            className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full py-5 bg-accent text-black font-extrabold uppercase tracking-[0.2em] hover:bg-[#00e600] active:scale-[0.98] transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-3 rounded-2xl text-sm shadow-[0_10px_30px_rgba(0,255,0,0.2)]"
           >
-            Перейти в бота <Send size={16} />
+            Войти в Челлендж <Send size={18} />
           </button>
         </div>
       </div>
@@ -336,9 +344,9 @@ const SplitScreenComparison: React.FC = () => {
   const toggleRight = (idx: number) => setRightOpenIndex(rightOpenIndex === idx ? null : idx);
 
   return (
-    <section id="split-comparison" ref={sectionRef} className="py-32 px-6 bg-kult-black relative overflow-hidden z-30">
+    <section id="split-comparison" ref={sectionRef} className="py-32 px-6 bg-transparent relative overflow-hidden z-30">
       <div className="max-w-7xl mx-auto">
-        <SectionHeader title="ТВОЙ ПУТЬ РОСТА" subtitle="Выбери свою роль и посмотри разницу между традиционным путём и культурой маркетинга." centered />
+        <SectionHeader title="ТВОЙ ПУТЬ РОСТА" subtitle="Выбери свою роль и посмотри разницу между традиционным путём и Культурой Маркетинга." centered />
 
         {/* Usage Instruction */}
         <div className="text-center mb-10 -mt-12 relative z-20">
@@ -366,11 +374,11 @@ const SplitScreenComparison: React.FC = () => {
         {/* Split Screen Layout */}
         <div className={`grid md:grid-cols-2 gap-8 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
 
-          {/* Left Column: With KULT */}
-          <div className="relative border-l-4 border-green-500 bg-white/5 p-8 rounded-r-xl">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500/50 to-transparent"></div>
-            <h3 className="text-2xl font-serif text-white mb-8 flex items-center gap-3">
-              <Zap className="text-green-500 fill-current" /> С культурой маркетинга
+          {/* Left Column: With Marketing Culture */}
+          <div className="relative border-l-4 border-accent bg-white/5 p-8 md:p-12 rounded-2xl group/card transition-all hover:bg-white/[0.08] perspective-1000">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent/50 to-transparent"></div>
+            <h3 className="text-3xl font-serif text-white mb-10 flex items-center gap-4">
+              <Zap className="text-accent fill-current scale-125" /> С Культурой Маркетинга
             </h3>
 
             <div className="space-y-4">
@@ -553,88 +561,6 @@ const TurnkeySection: React.FC = () => (
   </section>
 );
 
-const ProjectsCatalog: React.FC = () => {
-  const simpleProjects = [
-    { title: "SpeakyGo", desc: "Практика языка с ИИ собеседником", icon: "🗣️", status: "Active" },
-    { title: "ChallengeLife", desc: "Сервис челленджей и марафонов", icon: "🏆", status: "Active" },
-    { title: "SkyPay/Capital", desc: "Крипта работает как обычные деньги", icon: "💳", status: "Coming Soon" },
-    { title: "Find The Job", desc: "Поиск работы и сотрудников с ИИ", icon: "🔍", status: "Active" },
-    { title: "Мяудза", desc: "Командный чат и задачи", icon: "🐱", status: "Active" },
-  ];
-
-  const heavyProjects = [
-    { title: "Metadoor-dev", desc: "Финмодели и прогнозы для бизнеса", icon: "📊", status: "Active" },
-    { title: "Claritech", desc: "Контроль и анализ расходов", icon: "📉", status: "Active" },
-    { title: "SciArticle", desc: "Автоматические бизнес-отчёты", icon: "📑", status: "Active" },
-    { title: "CRMChat", desc: "AI-аутрич и CRM в Telegram", icon: "🤖", status: "Active" },
-  ];
-
-  return (
-    <section className="py-24 px-6 bg-kult-black border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeader title="ПРОЕКТЫ ЭКОСИСТЕМЫ" subtitle="От простых сервисов до сложных бизнес-решений" />
-
-        {/* Легенда меток */}
-        <div className="mb-12 p-4 bg-white/5 border border-white/10 rounded-lg">
-          <p className="text-sm text-kult-muted text-center">
-            <span className="text-green-500 font-bold">LIVE</span> — проект уже запущен ·
-            <span className="text-yellow-500 font-bold"> SOON</span> — запуск в ближайшее время ·
-            <span className="text-blue-500 font-bold"> REVENUE</span> — проект уже приносит выручку
-          </p>
-        </div>
-
-        <div className="mb-16">
-          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><Zap size={20} /> Для людей и команд</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {simpleProjects.map((p, i) => (
-              <div key={i} className="p-6 border border-white/10 bg-white/5 rounded-lg hover:border-white/30 transition-all">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-2xl">{p.icon}</span>
-                  {p.status === 'Active' ? <CheckCircle2 size={16} className="text-green-500" /> : <span className="text-[10px] uppercase border border-white/20 px-2 py-1 rounded text-kult-muted">Скоро</span>}
-                </div>
-                <h4 className="text-lg font-bold text-white mb-2">{p.title}</h4>
-                <p className="text-sm text-kult-muted">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-16">
-          <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2"><BarChart3 size={20} /> Для бизнеса</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {heavyProjects.map((p, i) => (
-              <div key={i} className="p-6 border border-white/10 bg-white/5 rounded-lg hover:border-white/30 transition-all">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-2xl">{p.icon}</span>
-                  <CheckCircle2 size={16} className="text-green-500" />
-                </div>
-                <h4 className="text-lg font-bold text-white mb-2">{p.title}</h4>
-                <p className="text-sm text-kult-muted">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Premium Card for New Project */}
-        <div className="relative overflow-hidden rounded-2xl border border-white/20 group">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/40 to-blue-900/40 opacity-50 group-hover:opacity-70 transition-opacity"></div>
-          <div className="relative p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <div className="inline-block px-3 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded mb-4">New Arrival</div>
-              <h3 className="text-3xl font-serif text-white mb-2">Spell-book</h3>
-              <p className="text-kult-muted max-w-lg">Платформа ИИ-ассистентов нового поколения для малого бизнеса.</p>
-            </div>
-            <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20 backdrop-blur-md">
-              <Zap size={32} className="text-white" />
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-  );
-};
-
 const ValueStackSection: React.FC = () => (
   <section className="py-24 px-6 bg-kult-dark border-t border-white/5 relative overflow-hidden">
     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,0,0.05),transparent_70%)] pointer-events-none"></div>
@@ -780,7 +706,7 @@ const TrustSection: React.FC = () => (
 const GrowthTrackSection: React.FC = () => (
   <section className="py-24 px-6 bg-kult-black">
     <div className="max-w-7xl mx-auto">
-      <SectionHeader title="СРАВНЕНИЕ МОДЕЛЕЙ" subtitle="Почему старая модель найма больше не работает" centered />
+      <SectionHeader title="СРАВНЕНИЕ МОДЕЛЕЙ" subtitle="Почему старая модель найма больше не эффективна в 2025 году" centered />
 
       <div className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm">
         <div className="hidden md:grid grid-cols-3 bg-white/10 border-b border-white/10">
@@ -792,7 +718,7 @@ const GrowthTrackSection: React.FC = () => (
         <ComparisonRow
           title="Мотивация"
           traditional="Работа за оклад. Главная цель — отсидеть часы или сдать задачу."
-          kult="Работа за долю. Главная цель — рост прибыли компании."
+          kult="Работа за долю. Главная цель — рост прибыли."
         />
         <ComparisonRow
           title="Стоимость"
@@ -812,7 +738,7 @@ const GrowthTrackSection: React.FC = () => (
         <ComparisonRow
           title="Качество"
           traditional="Сложно проверить компетенции до начала работы."
-          kult="Только проверенные партнеры, прошедшие челленджи."
+          kult="Только проверенные партнеры, прошедшие Челлендж."
         />
       </div>
     </div>
@@ -914,22 +840,22 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-kult-black text-kult-text font-sans selection:bg-white selection:text-black overflow-x-hidden relative">
 
-      <div className="bg-noise"></div>
+      <BusinessBackground />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-kult-black/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-serif font-bold tracking-tighter text-white z-50">
-            КУЛЬТ
+          <div className="text-2xl font-serif font-extrabold tracking-tighter text-white z-50 flex items-center gap-2">
+            <span className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-black font-black text-xs rotate-3">KM</span>
+            КУЛЬТУРА МАРКЕТИНГА
           </div>
 
-          <div className="hidden md:flex space-x-8 text-xs font-bold tracking-widest uppercase">
+          <div className="hidden md:flex space-x-10 text-xs font-bold tracking-[0.2em] uppercase text-kult-muted">
             <button onClick={() => scrollToSection('concept')} className="hover:text-white transition-colors">КОНЦЕПЦИЯ</button>
             <button onClick={() => scrollToSection('roles')} className="hover:text-white transition-colors">РОЛИ</button>
-            <button onClick={() => scrollToSection('projects')} className="hover:text-white transition-colors">ПРОЕКТ</button>
-            <button onClick={() => scrollToSection('process')} className="hover:text-white transition-colors">ПРОЦЕСС</button>
+            <button onClick={() => scrollToSection('process')} className="hover:text-white transition-colors">ЧЕЛЛЕНДЖ</button>
             <button onClick={() => scrollToSection('manifesto')} className="hover:text-white transition-colors">МАНИФЕСТ</button>
           </div>
 
@@ -937,7 +863,7 @@ const App: React.FC = () => {
             className="hidden md:block px-6 py-2 border border-white/20 text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
             onClick={openModal}
           >
-            Войти в ассамблею
+            Начать Челлендж
           </button>
 
           <button
@@ -951,11 +877,10 @@ const App: React.FC = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden fixed inset-0 bg-kult-black z-40 pt-24 px-6 flex flex-col space-y-6">
-            <button onClick={() => scrollToSection('concept')} className="text-left text-2xl font-serif text-white">КОНЦЕПЦИЯ</button>
-            <button onClick={() => scrollToSection('roles')} className="text-left text-2xl font-serif text-white">РОЛИ</button>
-            <button onClick={() => scrollToSection('projects')} className="text-left text-2xl font-serif text-white">ПРОЕКТ</button>
-            <button onClick={() => scrollToSection('process')} className="text-left text-2xl font-serif text-white">ПРОЦЕСС</button>
-            <button onClick={() => scrollToSection('manifesto')} className="text-left text-2xl font-serif text-white">МАНИФЕСТ</button>
+            <button onClick={() => scrollToSection('concept')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">КОНЦЕПЦИЯ</button>
+            <button onClick={() => scrollToSection('roles')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">РОЛИ</button>
+            <button onClick={() => scrollToSection('process')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">ЧЕЛЛЕНДЖ</button>
+            <button onClick={() => scrollToSection('manifesto')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">МАНИФЕСТ</button>
           </div>
         )}
       </nav>
@@ -1068,7 +993,7 @@ const App: React.FC = () => {
       <BlueOceanSection />
 
       {/* The Solution (Roles) */}
-      <section id="roles" className="py-32 px-6 bg-kult-dark relative overflow-hidden">
+      <section id="roles" className="py-32 px-6 bg-transparent relative overflow-hidden">
         {/* Abstract shape */}
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] border border-white/5 rounded-full opacity-50"></div>
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] border border-white/5 rounded-full opacity-50"></div>
@@ -1082,27 +1007,27 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border-t border-l border-white/10">
             {ROLES.map((role, idx) => (
               <FadeInSection key={idx} delay={idx * 100}>
-                <div className="h-full border-r border-b border-white/10 p-10 md:p-12 group hover:bg-white/5 transition-all duration-500 cursor-default relative">
+                <div className="h-full border-r border-b border-white/10 p-10 md:p-12 group hover:bg-white/[0.03] transition-all duration-500 cursor-default relative overflow-hidden perspective-1000 hover:rotate-x-3 hover:rotate-y-3 hover:scale-102">
                   <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <ArrowRight className="text-white -rotate-45" />
                   </div>
 
                   <role.icon className="w-12 h-12 mb-8 text-white stroke-1" />
-                  <h3 className="text-3xl font-serif text-white mb-8 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
+                  <h3 className="text-3xl font-serif text-white mb-8 group-hover:text-accent transition-all">
                     {role.title}
                   </h3>
 
                   <ul className="space-y-6">
                     {role.points.map((point, pIdx) => (
                       <li key={pIdx} className="flex items-start text-kult-muted group-hover:text-white transition-colors duration-300">
-                        <span className="w-1.5 h-1.5 bg-white rounded-full mt-2 mr-4 flex-shrink-0 opacity-20 group-hover:opacity-100 transition-opacity"></span>
+                        <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 mr-4 flex-shrink-0 opacity-20 group-hover:opacity-100 transition-opacity"></span>
                         <span className="font-light text-sm leading-relaxed">{point}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <button onClick={openModal} className="mt-12 text-xs font-bold uppercase tracking-widest text-white border-b border-white/20 pb-1 hover:border-white transition-colors">
-                    Подать заявку как {role.title}
+                  <button onClick={openModal} className="mt-12 text-xs font-bold uppercase tracking-[0.2em] text-accent border-b border-accent/20 pb-1 hover:border-accent transition-all group/btn flex items-center gap-2">
+                    Начать Челлендж <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </FadeInSection>
@@ -1117,17 +1042,12 @@ const App: React.FC = () => {
 
       <Marquee text="КУЛЬТУРА МАРКЕТИНГА • ПАРТНЁРСТВА ВМЕСТО ЗАРПЛАТ • ДОЛЯ ОТ ПРИБЫЛИ ВМЕСТО БЮДЖЕТОВ •" reverse={true} />
 
-      {/* Projects Catalog */}
-      <div id="projects">
-        <ProjectsCatalog />
-      </div>
-
       <GrowthTrackSection />
 
       <TrustSection />
 
-      {/* The Process */}
-      <section id="process" className="py-32 px-6 bg-kult-black relative">
+      {/* The Process (Challenge) */}
+      <section id="process" className="py-32 px-6 bg-transparent relative">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             title="7-дневный челлендж"
@@ -1182,30 +1102,30 @@ const App: React.FC = () => {
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <FadeInSection>
-            <h2 className="text-5xl md:text-7xl font-serif font-bold mb-10 leading-none">
-              Готовы перестать играть в лотерею и начать системно расти?
+            <h2 className="text-5xl md:text-7xl font-serif font-bold mb-10 leading-none tracking-tighter">
+              Готовы перестать играть в лотерею и начать расти?
             </h2>
 
-            <div className="bg-kult-black text-white p-10 md:p-16 w-full shadow-2xl relative overflow-hidden group rounded-3xl">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+            <div className="bg-kult-black text-white p-10 md:p-16 w-full shadow-2xl relative overflow-hidden group rounded-[2.5rem]">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
-              <h3 className="text-2xl md:text-3xl font-serif font-bold mb-10 uppercase tracking-tight">
-                ПОЛУЧИТЬ ВСЕ БОНУСЫ И ДОСТУП К ЧЕЛЛЕНДЖУ
+              <h3 className="text-2xl md:text-3xl font-serif font-bold mb-10 uppercase tracking-widest text-accent">
+                ПОЛУЧИТЬ ДОСТУП К ЧЕЛЛЕНДЖУ
               </h3>
 
               <button
                 onClick={openModal}
-                className="w-full md:w-auto px-12 py-6 bg-[#00ff00] text-black font-black uppercase tracking-[0.1em] hover:bg-[#00cc00] hover:scale-105 transition-all inline-flex items-center justify-center gap-4 text-xl"
+                className="w-full md:w-auto px-12 py-6 bg-accent text-black font-black uppercase tracking-[0.2em] hover:bg-[#00e600] hover:scale-105 transition-all inline-flex items-center justify-center gap-4 text-xl rounded-2xl shadow-[0_20px_40px_rgba(0,255,0,0.3)]"
               >
-                🤖 Зайти в бота и получить все бонусы прямо сейчас →
+                🤖 Зайти в бот прямо сейчас →
               </button>
 
-              <div className="mt-8 flex flex-col items-center justify-center gap-2 text-xs text-white/40 font-bold uppercase tracking-widest">
+              <div className="mt-12 flex flex-col items-center justify-center gap-6 text-[10px] text-white/30 font-bold uppercase tracking-[0.3em]">
                 <p>Бесплатно для фаундеров. Занимает 30 секунд.</p>
-                <div className="flex items-center gap-6 mt-4">
-                  <span className="flex items-center gap-1">Musk</span>
-                  <span className="flex items-center gap-1">Hormozi</span>
-                  <span className="flex items-center gap-1">Brunson</span>
+                <div className="flex items-center gap-8 grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700">
+                  <span>MUSK</span>
+                  <span>HORMOZI</span>
+                  <span>BRUNSON</span>
                 </div>
               </div>
             </div>
@@ -1214,49 +1134,41 @@ const App: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-6 bg-kult-black border-t border-white/5 text-center md:text-left">
+      <footer className="py-24 px-6 bg-kult-black border-t border-white/5 text-center md:text-left transition-all">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-          <div>
-            <div className="text-4xl font-serif font-bold text-white mb-4">КУЛЬТ</div>
-            <p className="text-kult-muted text-sm max-w-xs leading-relaxed">
-              Первая в России деловая ассамблея, работающая по модели Profit Sharing.
+          <div className="max-w-md">
+            <div className="text-3xl font-serif font-black text-white mb-6 tracking-tighter flex items-center gap-2">
+              <span className="w-8 h-8 bg-accent rounded flex items-center justify-center text-black text-xs rotate-3">KM</span>
+              КУЛЬТУРА МАРКЕТИНГА
+            </div>
+            <p className="text-kult-muted text-sm leading-relaxed font-light">
+              Система партнерского роста для бизнеса. Внедряем маркетинг за результат по модели Profit Sharing.
             </p>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-12">
+          <div className="flex flex-col md:flex-row gap-16 md:gap-24">
             <div>
-              <h5 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Навигация</h5>
+              <h5 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-8 opacity-50">Навигация</h5>
               <div className="flex flex-col gap-4 text-sm text-kult-muted">
-                <button onClick={() => scrollToSection('concept')} className="text-left hover:text-white transition-colors">Концепция</button>
-                <button onClick={() => scrollToSection('roles')} className="text-left hover:text-white transition-colors">Роли</button>
-                <button onClick={() => scrollToSection('projects')} className="text-left hover:text-white transition-colors">Проекты</button>
-                <button onClick={() => scrollToSection('process')} className="text-left hover:text-white transition-colors">Процесс</button>
+                <button onClick={() => scrollToSection('concept')} className="text-left hover:text-accent transition-colors">Концепция</button>
+                <button onClick={() => scrollToSection('roles')} className="text-left hover:text-accent transition-colors">Роли</button>
+                <button onClick={() => scrollToSection('process')} className="text-left hover:text-accent transition-colors">Челлендж</button>
               </div>
             </div>
 
             <div>
-              <h5 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Документы</h5>
+              <h5 className="text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-8 opacity-50">Юридическая информация</h5>
               <div className="flex flex-col gap-4 text-sm text-kult-muted">
-                <a href="/legal/privacy.html" target="_blank" className="hover:text-white transition-colors">Политика конфиденциальности</a>
-                <a href="/legal/consent.html" target="_blank" className="hover:text-white transition-colors">Согласие на обработку ПД</a>
-                <a href="/legal/offer.html" target="_blank" className="hover:text-white transition-colors">Оферта</a>
+                <a href="/privacy" className="hover:text-accent transition-colors">Приватность</a>
+                <a href="/offer" className="hover:text-accent transition-colors">Оферта</a>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Правило атрибуции */}
-        <div className="max-w-7xl mx-auto mt-12 p-6 bg-white/5 border border-white/10 rounded-lg">
-          <h5 className="text-white font-bold uppercase tracking-widest text-xs mb-4">Правило атрибуции привода</h5>
-          <p className="text-sm text-kult-muted leading-relaxed">
-            Привод засчитывается тому, кто первым показал диалог с клиентом и далее была конверсия по этапам.
-            Если до захода в бот клиент уже общался с рекомендателем — засчитывается рекомендателю.
-          </p>
-        </div>
-
-        <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-kult-muted/50">
-          <p>© 2024 KULT Assembly. All rights reserved.</p>
-          <p>Designed for Leaders.</p>
+        <div className="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] text-kult-muted/30 font-mono uppercase tracking-[0.4em]">
+          <p>© 2025 MARKETING CULTURE. GLOBAL PARTNERSHIPS.</p>
+          <p className="mt-4 md:mt-0 tracking-[0.2em]">Crafted for the new generation of founders.</p>
         </div>
       </footer>
 
@@ -1264,12 +1176,11 @@ const App: React.FC = () => {
       <div className="md:hidden fixed bottom-6 left-6 right-6 z-40">
         <button
           onClick={openModal}
-          className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+          className="w-full py-5 bg-accent text-black font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(0,255,0,0.3)] rounded-xl text-xs active:scale-95 transition-all"
         >
-          Подать заявку
+          Начать Челлендж
         </button>
       </div>
-
     </div>
   );
 };

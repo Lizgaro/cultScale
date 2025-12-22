@@ -3,41 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Культура Маркетинга — партнерская система роста. Подключите маркетинг-партнера за 7 дней за % от прибыли. Масштабируйте бизнес без предоплат агентствам." />
+    <meta name="keywords" content="маркетинг партнер, работа за процент, лидген за результат, партнерский маркетинг 2026, масштабирование бизнеса" />
+    <meta property="og:title" content="Культура Маркетинга — Партнерский рост за % от прибыли" />
+    <meta property="og:description" content="Перестаньте играть в лотерею с агентствами. Внедрите систему партнерского роста за неделю." />
+    <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>КУЛЬТ — Комьюнити деловой ассамблеи</title>
+    <title>Культура Маркетинга — Партнерская система роста</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bormiolo:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              serif: ['Playfair Display', 'serif'],
+              sans: ['Outfit', 'sans-serif'],
+              serif: ['Bormiolo', 'serif'],
               mono: ['JetBrains Mono', 'monospace'],
             },
             colors: {
-              'kult-black': '#050505',
-              'kult-dark': '#0a0a0a',
-              'kult-gray': '#1a1a1a',
-              'kult-text': '#e5e5e5',
-              'kult-muted': '#a3a3a3',
+              'kult-black': '#020202',
+              'kult-dark': '#080808',
+              'kult-gray': '#121212',
+              'kult-text': '#fafafa',
+              'kult-muted': '#737373',
+              'accent': '#00ff00',
             },
             animation: {
               'float': 'float 6s ease-in-out infinite',
-              'scroll': 'scroll 20s linear infinite',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'scroll': 'scroll 30s linear infinite',
+              'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'bg-shift': 'bg-shift 15s ease infinite',
             },
             keyframes: {
               float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
+                '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                '50%': { transform: 'translateY(-20px) rotate(1deg)' },
               },
               scroll: {
                 '0%': { transform: 'translateX(0)' },
                 '100%': { transform: 'translateX(-100%)' },
+              },
+              'bg-shift': {
+                '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+                '33%': { transform: 'translate(5%, 5%) scale(1.1)' },
+                '66%': { transform: 'translate(-5%, 2%) scale(0.9)' },
               }
             }
           }
