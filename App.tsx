@@ -856,7 +856,6 @@ const App: React.FC = () => {
             <button onClick={() => scrollToSection('concept')} className="hover:text-white transition-colors">КОНЦЕПЦИЯ</button>
             <button onClick={() => scrollToSection('roles')} className="hover:text-white transition-colors">РОЛИ</button>
             <button onClick={() => scrollToSection('process')} className="hover:text-white transition-colors">ЧЕЛЛЕНДЖ</button>
-            <button onClick={() => scrollToSection('manifesto')} className="hover:text-white transition-colors">МАНИФЕСТ</button>
           </div>
 
           <button
@@ -880,7 +879,6 @@ const App: React.FC = () => {
             <button onClick={() => scrollToSection('concept')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">КОНЦЕПЦИЯ</button>
             <button onClick={() => scrollToSection('roles')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">РОЛИ</button>
             <button onClick={() => scrollToSection('process')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">ЧЕЛЛЕНДЖ</button>
-            <button onClick={() => scrollToSection('manifesto')} className="text-left text-3xl font-serif text-white uppercase tracking-tighter">МАНИФЕСТ</button>
           </div>
         )}
       </nav>
@@ -932,15 +930,6 @@ const App: React.FC = () => {
             </FadeInSection>
           </div>
 
-          <FadeInSection delay={800} className="hidden lg:block">
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-transparent blur opacity-30"></div>
-              <ChatSimulation />
-              <div className="mt-6 text-center">
-                <p className="text-xs text-kult-muted font-mono uppercase tracking-widest">Live Partnership Engine</p>
-              </div>
-            </div>
-          </FadeInSection>
         </div>
       </header>
 
@@ -990,7 +979,6 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      <BlueOceanSection />
 
       {/* The Solution (Roles) */}
       <section id="roles" className="py-32 px-6 bg-transparent relative overflow-hidden">
@@ -1038,13 +1026,11 @@ const App: React.FC = () => {
 
       <SplitScreenComparison />
 
-      <TurnkeySection />
 
       <Marquee text="КУЛЬТУРА МАРКЕТИНГА • ПАРТНЁРСТВА ВМЕСТО ЗАРПЛАТ • ДОЛЯ ОТ ПРИБЫЛИ ВМЕСТО БЮДЖЕТОВ •" reverse={true} />
 
       <GrowthTrackSection />
 
-      <TrustSection />
 
       {/* The Process (Challenge) */}
       <section id="process" className="py-32 px-6 bg-transparent relative">
