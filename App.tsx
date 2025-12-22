@@ -227,16 +227,12 @@ const ChatSimulation: React.FC = () => {
   );
 };
 
-// Updated Modal Component
+// Updated Modal Component (T4: Removed checkbox friction)
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  const [agreed, setAgreed] = useState(false);
-
   if (!isOpen) return null;
 
   const handleGoToBot = () => {
-    if (agreed) {
-      window.location.href = "https://t.me/CultScale_bot";
-    }
+    window.location.href = "https://t.me/CultScale_bot";
   };
 
   return (
@@ -252,34 +248,20 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
             <Zap size={40} className="text-black fill-current" />
           </div>
 
-          <h3 className="text-3xl font-serif font-bold text-white mb-4 text-center tracking-tight">Начни свой Челлендж</h3>
-          <p className="text-kult-muted text-base mb-10 text-center leading-relaxed">
-            Все операции, матчинг и управление партнерствами происходят в защищенном Telegram-боте.
-          </p>
+          <h3 className="text-3xl font-serif font-bold text-white mb-4 text-center tracking-tight">Начни свой 7-дневный Челлендж</h3>
 
-          <div className="mb-10">
-            <label className="flex items-start gap-4 cursor-pointer group p-4 border border-white/5 bg-white/[0.02] rounded-2xl hover:bg-white/[0.05] transition-all">
-              <div className={`w-6 h-6 border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 rounded-lg ${agreed ? 'bg-accent border-accent' : 'border-white/20 group-hover:border-white/40'}`}>
-                {agreed && <CheckCircle2 size={14} className="text-black stroke-[3px]" />}
-              </div>
-              <input
-                type="checkbox"
-                className="hidden"
-                checked={agreed}
-                onChange={e => setAgreed(e.target.checked)}
-              />
-              <span className="text-xs text-kult-muted leading-relaxed select-none">
-                Я принимаю условия <a href="/legal/offer.html" target="_blank" className="text-white underline hover:text-accent transition-colors">Оферты</a>,
-                соглашаюсь с <a href="/legal/privacy.html" target="_blank" className="text-white underline hover:text-accent transition-colors">Политикой</a> и даю
-                <a href="/legal/consent.html" target="_blank" className="text-white underline hover:text-accent transition-colors"> Согласие на обработку данных</a>.
-              </span>
-            </label>
+          {/* T3: Urgency element */}
+          <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mb-8 text-center">
+            <p className="text-red-400 text-sm font-bold uppercase tracking-wider">🔥 Осталось 7 мест в этом потоке</p>
           </div>
+
+          <p className="text-kult-muted text-base mb-10 text-center leading-relaxed">
+            Все операции и матчинг происходят в Telegram-боте. Нажимая кнопку, вы соглашаетесь с <a href="/legal/offer.html" target="_blank" className="text-accent underline">Офертой</a>.
+          </p>
 
           <button
             onClick={handleGoToBot}
-            disabled={!agreed}
-            className="w-full py-5 bg-accent text-black font-extrabold uppercase tracking-[0.2em] hover:bg-[#00e600] active:scale-[0.98] transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-3 rounded-2xl text-sm shadow-[0_10px_30px_rgba(0,255,0,0.2)]"
+            className="w-full py-5 bg-accent text-black font-extrabold uppercase tracking-[0.2em] hover:bg-[#00e600] active:scale-[0.98] transition-all flex items-center justify-center gap-3 rounded-2xl text-sm shadow-[0_10px_30px_rgba(0,255,0,0.2)]"
           >
             Войти в Челлендж <Send size={18} />
           </button>
@@ -579,11 +561,13 @@ const ValueStackSection: React.FC = () => (
           <div className="text-white font-bold">БЕСПЛАТНО</div>
         </div>
 
-        <div className="p-6 bg-white/5 border border-white/10 rounded-xl group hover:border-green-500/30 transition-all">
-          <div className="text-kult-muted text-xs uppercase mb-2">Бонус №1</div>
+        {/* T8: Highlighted main bonus */}
+        <div className="p-6 bg-gradient-to-br from-yellow-500/10 to-amber-500/5 border-2 border-yellow-500/50 rounded-xl group hover:border-yellow-500 transition-all relative overflow-hidden">
+          <div className="absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-black text-[10px] font-black uppercase rounded">⭐ ГЛАВНЫЙ</div>
+          <div className="text-yellow-500 text-xs uppercase mb-2">Бонус №1</div>
           <h4 className="text-lg font-bold text-white mb-4">PDF «Формула Илона Маска»</h4>
           <p className="text-xs text-kult-muted mb-4">Как Маск создал PayPal с партнёрами и реинвестировал $180 млн. Применим в B2B.</p>
-          <div className="text-green-500 text-xs font-bold mt-auto flex items-center gap-2">ВНУТРИ БОТА <Send size={12} /></div>
+          <div className="text-yellow-500 text-xs font-bold mt-auto flex items-center gap-2">ВНУТРИ БОТА <Send size={12} /></div>
         </div>
 
         <div className="p-6 bg-white/5 border border-white/10 rounded-xl group hover:border-green-500/30 transition-all">
@@ -659,7 +643,65 @@ const GuaranteeSection: React.FC = () => (
   </section>
 );
 
+// T12: FAQ Section to reduce objections
+const FAQSection: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: "Это бесплатно? В чём подвох?",
+      a: "Да, 7-дневный челлендж полностью бесплатный. Мы зарабатываем на услуге «под ключ» для тех, кто хочет делегировать весь процесс."
+    },
+    {
+      q: "Сколько времени занимает?",
+      a: "1 час в день в течение 7 дней. Всё происходит в Telegram-боте в удобное для вас время."
+    },
+    {
+      q: "Что если у меня нет продукта?",
+      a: "Челлендж подходит для проектов на стадии MVP и выше. Если у вас есть идея — начните с неё."
+    },
+    {
+      q: "Какие гарантии?",
+      a: "Даже если партнёра не найдёте, у вас останутся: упакованный оффер, презентация и записанный подкаст стоимостью ₽500к–₽2 млн."
+    }
+  ];
+
+  return (
+    <section className="py-24 px-6 bg-kult-dark border-t border-white/5">
+      <div className="max-w-3xl mx-auto">
+        <SectionHeader title="Частые вопросы" centered />
+
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => (
+            <div
+              key={idx}
+              className="border border-white/10 rounded-xl overflow-hidden bg-white/5 hover:bg-white/[0.07] transition-colors"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                className="w-full p-6 text-left flex items-center justify-between gap-4"
+              >
+                <span className="text-white font-bold">{faq.q}</span>
+                <ChevronDown
+                  className={`text-accent flex-shrink-0 transition-transform duration-300 ${openIndex === idx ? 'rotate-180' : ''}`}
+                  size={20}
+                />
+              </button>
+              <div className={`grid transition-all duration-300 ease-in-out ${openIndex === idx ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                <div className="overflow-hidden">
+                  <p className="px-6 pb-6 text-kult-muted leading-relaxed">{faq.a}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const TrustSection: React.FC = () => (
+
   <section id="trust" className="py-24 px-6 bg-kult-dark relative overflow-hidden">
     {/* Background decoration to replace image visual weight */}
     <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
@@ -895,37 +937,39 @@ const App: React.FC = () => {
             <div className="absolute -inset-10 bg-black/40 blur-3xl -z-10 pointer-events-none rounded-full"></div>
 
             <FadeInSection>
-              <div className="inline-flex items-center gap-2 py-2 px-4 border border-white/10 bg-white/5 rounded backdrop-blur-sm mb-10 max-w-2xl text-left">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0 mt-1"></span>
-                <span className="text-[10px] md:text-xs font-semibold tracking-wide uppercase text-kult-muted leading-relaxed">
-                  Реклама в 2026 — это лотерея за ваш счет. Пока агентства сжигают ваши бюджеты без гарантий, другие фаундеры строят партнёрские системы и растут без риска.
-                </span>
+              {/* T2: Social Proof */}
+              <div className="inline-flex items-center gap-3 py-2 px-5 border border-accent/30 bg-accent/5 rounded-full mb-8">
+                <span className="text-accent text-sm font-bold">459+</span>
+                <span className="text-xs text-kult-muted uppercase tracking-wider">фаундеров уже в системе</span>
               </div>
             </FadeInSection>
 
             <FadeInSection delay={200}>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-10 tracking-tight">
-                Подключите маркетинг-партнера за 7 дней, который вложит своё время в ваш проект за <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff00] to-white italic">% от прибыли</span>, а не за фикс.
+              {/* T1: Shortened headline to ~15 words */}
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-8 tracking-tight">
+                Маркетинг-партнёр за <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white italic">% от прибыли</span>,<br />a не за фикс
               </h1>
             </FadeInSection>
 
-            <FadeInSection delay={400}>
-              <div className="max-w-2xl mx-auto lg:mx-0 mb-12 border-l border-white/20 pl-6 text-left">
-                <p className="text-lg md:text-xl text-kult-muted font-light leading-relaxed">
-                  Яндекс и Telegram перегреты. Пока вы платите агентствам 100% предоплату за "может быть сработает", мы внедрим систему партнёрского роста, которая превратит ваш продукт в магнит для топовых маркетологов и лидеров мнений.
-                </p>
-              </div>
+            <FadeInSection delay={300}>
+              <p className="text-lg md:text-xl text-kult-muted font-light leading-relaxed mb-10 max-w-xl">
+                Подключите маркетолога за 7 дней. Без предоплат и рисков.
+              </p>
             </FadeInSection>
 
-            <FadeInSection delay={600}>
+            <FadeInSection delay={400}>
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <button
                   onClick={openModal}
-                  className="w-full sm:w-auto px-8 py-5 bg-[#00ff00] text-black font-extrabold text-sm tracking-wider hover:bg-[#00cc00] hover:shadow-[0_8px_32px_rgba(0,255,0,0.4)] hover:scale-105 transition-all uppercase flex items-center justify-center gap-3 group border-none"
-                  style={{ height: '72px' }}
+                  className="w-full sm:w-auto px-10 py-5 bg-accent text-black font-extrabold text-sm tracking-wider hover:bg-[#00cc00] hover:shadow-[0_8px_32px_rgba(0,255,0,0.4)] hover:scale-105 transition-all uppercase flex items-center justify-center gap-3 group border-none rounded-xl"
                 >
-                  🚀 Забрать формулу Илона Маска и 3 бонуса в боте →
+                  🚀 Начать Челлендж →
                 </button>
+
+                {/* T3: Urgency */}
+                <span className="text-xs text-red-400 font-bold uppercase tracking-wider animate-pulse">
+                  Осталось 7 мест
+                </span>
               </div>
             </FadeInSection>
           </div>
@@ -1081,7 +1125,10 @@ const App: React.FC = () => {
 
       <GuaranteeSection />
 
+      <FAQSection />
+
       {/* Final CTA Section */}
+
       <section id="manifesto" className="py-32 px-6 bg-white text-kult-black relative overflow-hidden">
         {/* Grain overlay for white section needs to be dark */}
         <div className="absolute inset-0 bg-black opacity-[0.03] pointer-events-none mix-blend-multiply"></div>
@@ -1158,13 +1205,14 @@ const App: React.FC = () => {
         </div>
       </footer>
 
-      {/* Sticky Bottom CTA for Mobile */}
-      <div className="md:hidden fixed bottom-6 left-6 right-6 z-40">
+      {/* T5: Sticky Bottom CTA for Mobile - Always visible */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-gradient-to-t from-kult-black via-kult-black to-transparent">
         <button
           onClick={openModal}
-          className="w-full py-5 bg-accent text-black font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(0,255,0,0.3)] rounded-xl text-xs active:scale-95 transition-all"
+          className="w-full py-4 bg-accent text-black font-black uppercase tracking-[0.15em] shadow-[0_-5px_30px_rgba(0,255,0,0.3)] rounded-xl text-sm active:scale-95 transition-all flex items-center justify-center gap-2"
         >
-          Начать Челлендж
+          🚀 Начать Челлендж
+          <span className="text-[10px] opacity-70">(осталось 7 мест)</span>
         </button>
       </div>
     </div>
