@@ -152,9 +152,15 @@ const SectionHeader: React.FC<{ title: string; subtitle?: string; centered?: boo
 
 const Marquee: React.FC<{ text: string; reverse?: boolean }> = ({ text, reverse = false }) => (
   <div className="w-full overflow-hidden bg-kult-text text-kult-black py-3 select-none relative z-20">
-    <div className={`flex whitespace-nowrap ${reverse ? 'animate-scroll-reverse' : 'animate-scroll'}`} style={{ animationDirection: reverse ? 'reverse' : 'normal' }}>
-      {[...Array(10)].map((_, i) => (
-        <span key={i} className="mx-8 font-mono text-sm uppercase tracking-widest font-bold flex items-center gap-4">
+    <div
+      className="flex whitespace-nowrap"
+      style={{
+        animation: `scroll 25s linear infinite`,
+        animationDirection: reverse ? 'reverse' : 'normal'
+      }}
+    >
+      {[...Array(20)].map((_, i) => (
+        <span key={i} className="mx-8 font-mono text-sm uppercase tracking-widest font-bold flex items-center gap-4 flex-shrink-0">
           {text} <Zap size={14} className="fill-current" />
         </span>
       ))}
@@ -553,21 +559,21 @@ const ValueStackSection: React.FC = () => (
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <div className="p-6 bg-white/5 border border-white/10 rounded-xl flex flex-col justify-between hover:bg-white/10 transition-colors">
+        {/* ГЛАВНЫЙ = Челлендж */}
+        <div className="p-6 bg-gradient-to-br from-accent/10 to-green-500/5 border-2 border-accent/50 rounded-xl flex flex-col justify-between hover:border-accent transition-all relative overflow-hidden cursor-pointer" onClick={() => window.location.href = 'https://t.me/CultScale_bot'}>
+          <div className="absolute top-2 right-2 px-2 py-1 bg-accent text-black text-[10px] font-black uppercase rounded">⭐ ГЛАВНОЕ</div>
           <div>
-            <div className="text-green-500 font-bold mb-2">БАЗОВОЕ</div>
+            <div className="text-accent font-bold mb-2">БАЗОВОЕ</div>
             <h4 className="text-lg font-bold text-white mb-4">7-дневный челлендж по упаковке проекта</h4>
           </div>
           <div className="text-white font-bold">БЕСПЛАТНО</div>
         </div>
 
-        {/* T8: Highlighted main bonus */}
-        <div className="p-6 bg-gradient-to-br from-yellow-500/10 to-amber-500/5 border-2 border-yellow-500/50 rounded-xl group hover:border-yellow-500 transition-all relative overflow-hidden">
-          <div className="absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-black text-[10px] font-black uppercase rounded">⭐ ГЛАВНЫЙ</div>
-          <div className="text-yellow-500 text-xs uppercase mb-2">Бонус №1</div>
+        <div className="p-6 bg-white/5 border border-white/10 rounded-xl group hover:border-green-500/30 transition-all">
+          <div className="text-kult-muted text-xs uppercase mb-2">Бонус №1</div>
           <h4 className="text-lg font-bold text-white mb-4">PDF «Формула Илона Маска»</h4>
           <p className="text-xs text-kult-muted mb-4">Как Маск создал PayPal с партнёрами и реинвестировал $180 млн. Применим в B2B.</p>
-          <div className="text-yellow-500 text-xs font-bold mt-auto flex items-center gap-2">ВНУТРИ БОТА <Send size={12} /></div>
+          <div className="text-green-500 text-xs font-bold mt-auto flex items-center gap-2">ВНУТРИ БОТА <Send size={12} /></div>
         </div>
 
         <div className="p-6 bg-white/5 border border-white/10 rounded-xl group hover:border-green-500/30 transition-all">
@@ -654,7 +660,7 @@ const FAQSection: React.FC = () => {
     },
     {
       q: "Сколько времени занимает?",
-      a: "1 час в день в течение 7 дней. Всё происходит в Telegram-боте в удобное для вас время."
+      a: "1 час в день в течение 7 дней."
     },
     {
       q: "Что если у меня нет продукта?",
@@ -889,10 +895,14 @@ const App: React.FC = () => {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-kult-black/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-serif font-extrabold tracking-tighter text-white z-50 flex items-center gap-2">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="text-2xl font-serif font-extrabold tracking-tighter text-white z-50 flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+          >
             <span className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-black font-black text-xs rotate-3">KM</span>
             КУЛЬТУРА МАРКЕТИНГА
-          </div>
+          </button>
+
 
           <div className="hidden md:flex space-x-10 text-xs font-bold tracking-[0.2em] uppercase text-kult-muted">
             <button onClick={() => scrollToSection('concept')} className="hover:text-white transition-colors">КОНЦЕПЦИЯ</button>
