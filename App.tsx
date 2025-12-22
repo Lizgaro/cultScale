@@ -150,23 +150,32 @@ const SectionHeader: React.FC<{ title: string; subtitle?: string; centered?: boo
   </div>
 );
 
-const Marquee: React.FC<{ text: string; reverse?: boolean }> = ({ text, reverse = false }) => (
-  <div className="w-full overflow-hidden bg-kult-text text-kult-black py-3 select-none relative z-20">
-    <div
-      className="flex whitespace-nowrap"
-      style={{
-        animation: `scroll 25s linear infinite`,
-        animationDirection: reverse ? 'reverse' : 'normal'
-      }}
-    >
-      {[...Array(20)].map((_, i) => (
-        <span key={i} className="mx-8 font-mono text-sm uppercase tracking-widest font-bold flex items-center gap-4 flex-shrink-0">
-          {text} <Zap size={14} className="fill-current" />
-        </span>
-      ))}
+const Marquee: React.FC<{ text: string; reverse?: boolean }> = ({ text, reverse = false }) => {
+  const animationStyle = {
+    display: 'flex',
+    whiteSpace: 'nowrap' as const,
+    animation: 'marquee-scroll 30s linear infinite',
+    animationDirection: reverse ? 'reverse' : 'normal',
+  };
+
+  return (
+    <div className="w-full overflow-hidden bg-kult-text text-kult-black py-3 select-none relative z-20">
+      <style>{`
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+      <div style={animationStyle}>
+        {[...Array(20)].map((_, i) => (
+          <span key={i} className="mx-8 font-mono text-sm uppercase tracking-widest font-bold flex items-center gap-4 flex-shrink-0">
+            {text} <Zap size={14} className="fill-current" />
+          </span>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ChatSimulation: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -591,15 +600,14 @@ const ValueStackSection: React.FC = () => (
         </div>
       </div>
 
-      <div className="p-8 md:p-12 bg-[#00ff00] text-black rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="p-6 md:p-8 bg-white/10 border border-accent/30 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <div className="text-sm font-bold opacity-60 uppercase mb-2">ИТОГО</div>
-          <div className="text-3xl md:text-5xl font-serif font-black">ЦЕННОСТЬ ₽1,2 МЛН</div>
+          <div className="text-xs font-bold text-kult-muted uppercase mb-1">Итого</div>
+          <div className="text-xl md:text-2xl font-serif font-bold text-white">Ценность ₽1,2 млн</div>
         </div>
         <div className="text-center md:text-right">
-          <div className="text-sm font-bold opacity-60 uppercase mb-2">ВАША ЦЕНА</div>
-          <div className="text-3xl md:text-5xl font-serif font-black underline decoration-4">БЕСПЛАТНО</div>
-          <div className="text-xs font-bold mt-2 opacity-60">ТОЛЬКО ВРЕМЯ НА ПРОХОЖДЕНИЕ</div>
+          <div className="text-xs font-bold text-kult-muted uppercase mb-1">Ваша цена</div>
+          <div className="text-xl md:text-2xl font-serif font-bold text-accent">БЕСПЛАТНО</div>
         </div>
       </div>
     </div>
